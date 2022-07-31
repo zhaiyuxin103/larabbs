@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\ArrayShape;
 use Laravel\Jetstream\Features;
 
 class UserFactory extends Factory
@@ -22,23 +23,25 @@ class UserFactory extends Factory
      *
      * @return array
      */
-    public function definition()
-    {
-        return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
-        ];
-    }
+    #[ArrayShape(['name' => 'string', 'email' => 'string', 'email_verified_at' => "\Illuminate\Support\Carbon", 'password' => 'string', 'remember_token' => 'string', 'current_team_id' => 'mixed'])]
+ public function definition(): array
+ {
+     return [
+         'name' => $this->faker->name(),
+         'email' => $this->faker->unique()->safeEmail(),
+         'email_verified_at' => now(),
+         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+         'remember_token' => Str::random(10),
+         'current_team_id' => $this->faker->numberBetween(1, 10),
+     ];
+ }
 
     /**
      * Indicate that the model's email address should be unverified.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
-    public function unverified()
+    public function unverified(): Factory
     {
         return $this->state(function (array $attributes) {
             return [
@@ -52,7 +55,7 @@ class UserFactory extends Factory
      *
      * @return $this
      */
-    public function withPersonalTeam()
+    public function withPersonalTeam(): static
     {
         if (! Features::hasTeamFeatures()) {
             return $this->state([]);
