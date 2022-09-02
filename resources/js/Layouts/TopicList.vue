@@ -25,7 +25,12 @@
                     </Link>
                     <span class="mx-1"> • </span>
                     <font-awesome-icon icon="fa-regular fa-clock"/>
-                    <span class="ml-1">{{ formatDistance(new Date(topic.updated_at), new Date(), {locale: zhCN}) }}</span>
+                    <tippy>
+                        <span class="ml-1">{{ formatDistance(new Date(topic.updated_at), new Date(), {locale: zhCN}) }}</span>
+                         <template #content>
+                            发布于 {{ topic.created_at }}
+                        </template>
+                    </tippy>
                 </small>
             </div>
         </li>
