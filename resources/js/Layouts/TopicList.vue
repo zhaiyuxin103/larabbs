@@ -1,0 +1,47 @@
+<template>
+    <ul>
+        <li v-for="topic in topics" class="flex items-center p-2 border-b border-slate-200 hover:bg-gray-500/5">
+            <div class="border border-gray-200 rounded-md mr-4">
+                <Link>
+                    <img :src="topic.user.profile_photo_url" :alt="topic.user.name" class="w-[50px] p-1">
+                </Link>
+            </div>
+            <div class="grow">
+                <div class="flex justify-between flex-auto">
+                    <Link :href="route('topics.show', topic.id)">{{ topic.title }}</Link>
+                    <Link :href="route('topics.show', topic.id)">
+                        <span class="bg-gray-300 rounded-full px-2 text-white">{{ topic.reply_count }}</span>
+                    </Link>
+                </div>
+                <small class="flex items-center text-gray-500">
+                    <Link>
+                        <font-awesome-icon icon="fa-regular fa-folder-closed"/>
+                        <span class="ml-1">{{ topic.category.name }}</span>
+                    </Link>
+                    <span class="mx-1"> • </span>
+                    <Link>
+                        <font-awesome-icon icon="fa-regular fa-user"/>
+                        <span class="ml-1">{{ topic.user.name }}</span>
+                    </Link>
+                    <span class="mx-1"> • </span>
+                    <font-awesome-icon icon="fa-regular fa-clock"/>
+                    <span class="ml-1">{{ formatDistance(new Date(topic.updated_at), new Date(), {locale: zhCN}) }}</span>
+                </small>
+            </div>
+        </li>
+    </ul>
+</template>
+
+<script setup>
+import { Link } from '@inertiajs/inertia-vue3';
+import { formatDistance } from 'date-fns'
+import { zhCN } from 'date-fns/locale';
+
+defineProps({
+    topics: Array,
+});
+</script>
+
+<style scoped>
+
+</style>

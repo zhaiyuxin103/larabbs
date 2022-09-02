@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
-use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -19,8 +17,11 @@ class CategoryResource extends Resource
     protected static ?string $model = Category::class;
 
     protected static ?string $label = '话题类目';
+
     protected static ?string $breadcrumb = '话题类目';
+
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+
     protected static ?string $navigationLabel = '类目管理';
 
     public static function form(Form $form): Form
