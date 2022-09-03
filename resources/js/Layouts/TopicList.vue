@@ -14,7 +14,7 @@
                     </Link>
                 </div>
                 <small class="flex items-center text-gray-500">
-                    <Link>
+                    <Link :href="route('categories.show', topic.category.id)">
                         <font-awesome-icon icon="fa-regular fa-folder-closed"/>
                         <span class="ml-1">{{ topic.category.name }}</span>
                     </Link>
