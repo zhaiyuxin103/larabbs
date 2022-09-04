@@ -13,7 +13,7 @@ class CategoriesController extends Controller
     {
         return Inertia::render('Categories/Show', [
             'category' => Category::with(['parent'])->where('id', $category->id)->first(),
-            'topics' => Topic::with(['category', 'user'])->where('category_id', $category->id)->paginate(),
+            'topics' => Topic::with(['category', 'user'])->where('category_id', $category->id)->withOrder(Request()->input('order'))->paginate(),
         ]);
     }
 }

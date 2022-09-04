@@ -10,12 +10,18 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                     <div>
-                        <JetButton class="mr-4">最后回复</JetButton>
-                        <Link>最新发布</Link>
+                        <Link class="mr-4" :href="_.head(_.split($page.url, '?')) + '?order=default'">
+                            <span v-if="$page.url.endsWith('recent')">最后回复</span>
+                            <JetButton v-else>最后回复</JetButton>
+                        </Link>
+                        <Link :href="_.head(_.split($page.url, '?')) + '?order=recent'">
+                            <JetButton v-if="$page.url.endsWith('recent')">最新发布</JetButton>
+                            <span v-else>最新发布</span>
+                        </Link>
                     </div>
                     <hr class="mt-4">
                     <TopicList :topics="topics.data"></TopicList>
-                    <pagination :links="topics.links" :page="page" :from="topics.from" :to="topics.to" :total="topics.total" :current-page="topics.current_page" :last-page="topics.last_page" />
+                    <pagination :links="topics.links" :page="page" :from="topics.from" :to="topics.to" :total="topics.total" :current-page="topics.current_page" :last-page="topics.last_page" :prev-page-url="topics.prev_page_url" :next-page-url="topics.next_page_url" />
                 </div>
             </div>
         </div>
@@ -28,8 +34,9 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import JetButton from '@/Jetstream/Button.vue';
 import TopicList from '@/Layouts/TopicList.vue';
 import Pagination from '@/Components/Pagination.vue';
+import _ from "lodash";
 
-const props = defineProps({
+defineProps({
     topics: Object,
     page: Number,
 });

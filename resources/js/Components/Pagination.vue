@@ -6,19 +6,19 @@
                     <span v-if="page === 1" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 rounded-md">
                         上一页
                     </span>
-                    <button
-                        class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" v-else>上一页
-                    </button>
+                    <Link
+                        class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" v-else :href="prevPageUrl">上一页
+                    </Link>
                 </span>
 
                 <span
                     class="py-2">{{ from }} ～ {{ to }} 条 / {{ total }} 条</span>
 
                 <span>
-                    <button
-                        class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" v-if="currentPage < lastPage">
+                    <Link
+                        class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" v-if="currentPage < lastPage" :href="nextPageUrl">
                       下一页
-                    </button>
+                    </Link>
                     <span
                       class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 rounded-md" v-else>
                       下一页
@@ -109,5 +109,7 @@ defineProps({
     total: Number,
     currentPage: Number,
     lastPage: Number,
+    prevPageUrl: String,
+    nextPageUrl: String,
 });
 </script>

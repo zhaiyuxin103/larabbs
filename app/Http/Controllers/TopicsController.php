@@ -14,7 +14,7 @@ class TopicsController extends Controller
         return Inertia::render('Topics/Index', [
             // 将类目树传递给模版文件
             'categoryTree' => $categoryService->getCategoryTree(),
-            'topics' => Topic::with(['category', 'user'])->paginate(),
+            'topics' => Topic::with(['category', 'user'])->withOrder(Request()->input('order'))->paginate(),
             'page' => Request()->input('page', 1),
         ]);
     }

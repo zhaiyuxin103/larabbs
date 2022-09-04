@@ -15,7 +15,7 @@
                     </div>
                     <hr class="mt-4">
                     <TopicList :topics="topics.data"></TopicList>
-                    <pagination :links="topics.links" :page="page" :from="topics.from" :to="topics.to" :total="topics.total" :current-page="topics.current_page" :last-page="topics.last_page" />
+                    <pagination :links="topics.links" :page="page" :from="topics.from" :to="topics.to" :total="topics.total" :current-page="topics.current_page" :last-page="topics.last_page" :prev-page-url="topics.prev_page_url" :next-page-url="topics.next_page_url" />
                 </div>
             </div>
         </div>
