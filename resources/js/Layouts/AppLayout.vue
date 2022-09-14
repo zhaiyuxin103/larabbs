@@ -224,18 +224,21 @@ const logout = () => {
                                         <div class="block px-4 py-2 text-xs text-gray-400">
                                             Manage Account
                                         </div>
-
                                         <JetDropdownLink :href="route('profile.show')">
                                             Profile
                                         </JetDropdownLink>
-
                                         <JetDropdownLink v-if="$page.props.jetstream.hasApiFeatures"
                                                          :href="route('api-tokens.index')">
                                             API Tokens
                                         </JetDropdownLink>
-
                                         <div class="border-t border-gray-100"/>
-
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            Topics & Replies
+                                        </div>
+                                        <JetDropdownLink :href="`/users/${$page.props.user.id}/topics`">
+                                            Topics
+                                        </JetDropdownLink>
+                                        <div class="border-t border-gray-100"/>
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <JetDropdownLink as="button">

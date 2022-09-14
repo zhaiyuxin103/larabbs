@@ -1,8 +1,8 @@
 <template>
-    <AppLayout :title="category.parent.name + ' - ' + category.name" :category-parent-id="category.parent.id" :categoryId="category.id">
+    <AppLayout title="话题列表">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ category.parent.name }} - {{ category.name }}
+                我的话题列表
             </h2>
         </template>
 
@@ -36,8 +36,7 @@ import TopicList from '@/Layouts/TopicList.vue';
 import Pagination from '@/Components/Pagination.vue';
 import _ from "lodash";
 
-const props = defineProps({
-    category: Object,
+defineProps({
     topics: Object,
     page: Number,
 });

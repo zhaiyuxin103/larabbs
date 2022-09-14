@@ -35,5 +35,6 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::resource('topics', TopicsController::class);
+    Route::get('users/{user}/topics', [TopicsController::class, 'userIndex'])->name('users.topics.index');
     Route::resource('categories', CategoriesController::class);
 });
