@@ -36,7 +36,7 @@ import TopicList from '@/Layouts/TopicList.vue';
 import Pagination from '@/Components/Pagination.vue';
 import _ from "lodash";
 
-const props = defineProps({
+defineProps({
     category: Object,
     topics: Object,
     page: Number,
