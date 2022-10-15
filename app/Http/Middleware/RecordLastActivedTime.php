@@ -13,8 +13,8 @@ class RecordLastActivedTime
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure $next
+     * @param  Request  $request
+     * @param  Closure  $next
      * @return RedirectResponse|Response|mixed
      */
     public function handle(Request $request, Closure $next): mixed

@@ -36,37 +36,37 @@ class UserFactory extends Factory
         ];
     }
 
-       /**
-        * Indicate that the model's email address should be unverified.
-        *
-        * @return Factory
-        */
-       public function unverified(): Factory
-       {
-           return $this->state(function (array $attributes) {
-               return [
-                   'email_verified_at' => null,
-               ];
-           });
-       }
+    /**
+     * Indicate that the model's email address should be unverified.
+     *
+     * @return Factory
+     */
+    public function unverified(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'email_verified_at' => null,
+            ];
+        });
+    }
 
-       /**
-        * Indicate that the user should have a personal team.
-        *
-        * @return $this
-        */
-       public function withPersonalTeam(): static
-       {
-           if (! Features::hasTeamFeatures()) {
-               return $this->state([]);
-           }
+    /**
+     * Indicate that the user should have a personal team.
+     *
+     * @return $this
+     */
+    public function withPersonalTeam(): static
+    {
+        if (! Features::hasTeamFeatures()) {
+            return $this->state([]);
+        }
 
-           return $this->has(
+        return $this->has(
                Team::factory()
                    ->state(function (array $attributes, User $user) {
                        return ['name' => $user->name.'\'s Team', 'user_id' => $user->id, 'personal_team' => true];
                    }),
                'ownedTeams'
            );
-       }
+    }
 }

@@ -24,7 +24,7 @@ class SyncUserActivedAt extends Command
     /**
      * Execute the console command.
      *
-     * @param User $user
+     * @param  User  $user
      * @return void
      */
     public function handle(User $user): void

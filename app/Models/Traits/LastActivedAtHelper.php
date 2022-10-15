@@ -10,6 +10,7 @@ trait LastActivedAtHelper
 {
     // 缓存相关
     protected string $hash_prefix = 'larabbs_last_actived_at_';
+
     protected $field_prefix = 'user_';
 
     public function recordLastActivedAt(): void
@@ -18,10 +19,10 @@ trait LastActivedAtHelper
         $date = Carbon::now()->toDateString();
 
         // Redis 哈希表的命名，如：larabbs_last_actived_at_2020-10-10
-        $hash = $this->hash_prefix . $date;
+        $hash = $this->hash_prefix.$date;
 
         // 字段名称，如：user_1
-        $field = $this->field_prefix . $this->id;
+        $field = $this->field_prefix.$this->id;
 
         // 当前时间，如：2020-10-10 20:35:15
         $now = Carbon::now()->toDateTimeString();
@@ -36,7 +37,7 @@ trait LastActivedAtHelper
         $yesterday_date = Carbon::yesterday()->toDateString();
 
         // Redis 哈希表的命名，如：larabbs_last_actived_at_2020-10-09
-        $hash = $this->hash_prefix . $yesterday_date;
+        $hash = $this->hash_prefix.$yesterday_date;
 
         // 从 Redis 中获取所有哈希表里的数据
         $dates = Redis::hGetAll($hash);
@@ -67,10 +68,10 @@ trait LastActivedAtHelper
                 $date = Carbon::now()->toDateString();
 
                 // Redis 哈希表的命名，如：larabbs_last_actived_at_2020-10-10
-                $hash = $this->hash_prefix . $date;
+                $hash = $this->hash_prefix.$date;
 
                 // 字段名称，如：user_1
-                $field = $this->field_prefix . $this->id;
+                $field = $this->field_prefix.$this->id;
 
                 // 三元运算符，优先选择 Redis 的数据，否则使用数据库中的数据
                 $datetime = Redis::hGet($hash, $field) ?: $value;
@@ -89,12 +90,12 @@ trait LastActivedAtHelper
     public function getHashFromDateString($date): string
     {
         // Redis 哈希表的命名，如：larabbs_last_actived_at_2020-10-11
-        return $this->hash_prefix . $date;
+        return $this->hash_prefix.$date;
     }
 
     public function getHashField(): string
     {
         // 字段名称，如：user_1
-        return $this->field_prefix . $this->id;
+        return $this->field_prefix.$this->id;
     }
 }

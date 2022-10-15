@@ -33,6 +33,7 @@ class Kernel extends HttpKernel
     /**
      * The application's route middleware groups.
      * 设定中间件组
+     *
      * @var array<string, array<int, class-string|string>>
      */
     protected $middlewareGroups = [
