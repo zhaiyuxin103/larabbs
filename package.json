@@ -41,9 +41,11 @@
         "@fortawesome/free-solid-svg-icons": "^6.1.1",
         "@fortawesome/vue-fontawesome": "^3.0.1",
         "@heroicons/vue": "^2.0.12",
+        "@tinymce/tinymce-vue": "^5.0.0",
         "date-fns": "^2.29.1",
         "lint-staged": "^13.0.3",
         "moment": "^2.29.4",
+        "tinymce": "^6.2.0",
         "vue-tippy": "^6.0.0-alpha.63"
     }
 }

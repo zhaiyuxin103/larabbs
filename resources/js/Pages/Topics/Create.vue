@@ -10,6 +10,7 @@ import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import { useForm } from "@inertiajs/inertia-vue3";
 import _ from "lodash";
 import { ref } from "vue";
+import Editor from '@tinymce/tinymce-vue';
 
 const props = defineProps({
     categories: Object,
@@ -200,9 +201,14 @@ const submit = () => {
                                         内容<span class="text-red-500">*</span>
                                     </label>
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
-                                            <textarea v-model="form.body" rows="6"
-                                                      placeholder="请填入至少三个字符的内容"
-                                                      class="block w-full max-w-lg rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 shadow-sm sm:text-sm"></textarea>
+                                        <Editor
+                                            api-key="eq51qrnan6h80nwa343xxre3tnbsqkjy1rftzhzh6qoolvt7"
+                                            :init="{
+                                                plugins: 'lists link image table code help wordcount'
+                                            }"
+                                            v-model="form.body"
+                                            placeholder="请填入至少三个字符的内容"
+                                        ></Editor>
                                         <p class="mt-2 text-sm text-gray-500">话题内容</p>
                                         <JetInputError :message="form.errors.body" class="mt-2"/>
                                     </div>
