@@ -62,9 +62,10 @@ class TopicsController extends Controller
             $result = $uploader->save($file, 'topics', Auth::id(), 1024);
             // 图片保存成功的话
             if ($result) {
-                $data['location'] = config('app.url') . $result['path'];
+                $data['location'] = config('app.url').$result['path'];
             }
         }
+
         return $data;
     }
 
