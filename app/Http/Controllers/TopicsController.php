@@ -52,13 +52,6 @@ class TopicsController extends Controller
         return Inertia::render('Topics/Create', compact('categories', 'previous'));
     }
 
-    public function show(Topic $topic): Response
-    {
-        return Inertia::render('Topics/Show', [
-            'topic' => $topic,
-        ]);
-    }
-
     public function uploadImage(Request $request, ImageUploadHandler $uploader): array
     {
         //  初始化返回数据，默认是失败的
@@ -84,6 +77,13 @@ class TopicsController extends Controller
         $topic->save();
 
         return Redirect::route('topics.show', $topic->id)->with('success', '帖子创建成功！');
+    }
+
+    public function show(Topic $topic): Response
+    {
+        return Inertia::render('Topics/Show', [
+            'topic' => Topic::with(['user'])->find($topic->id),
+        ]);
     }
 
     public function edit(): Response

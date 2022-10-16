@@ -96,9 +96,9 @@ const submit = () => {
                                     <p class="mt-1 max-w-2xl text-sm text-gray-500">创建话题</p>
                                 </div>
                                 <div
-                                    class="col-span-6 sm:col-span-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                    class="sm:grid sm:grid-cols-5 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <JetLabel>标题<span class="text-red-500"> * </span></JetLabel>
-                                    <div>
+                                    <div class="col-span-4">
                                         <JetInput
                                             v-model="form.title"
                                             type="text"
@@ -109,9 +109,9 @@ const submit = () => {
                                     </div>
                                 </div>
                                 <div
-                                    class="col-span-6 sm:col-span-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                    class="sm:grid sm:grid-cols-5 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <JetLabel>副标题<span class="text-red-500"> * </span></JetLabel>
-                                    <div>
+                                    <div class="col-span-4">
                                         <JetInput
                                             v-model="form.subtitle"
                                             type="text"
@@ -122,12 +122,12 @@ const submit = () => {
                                     </div>
                                 </div>
                                 <div
-                                    class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                    class="sm:grid sm:grid-cols-5 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <label for="cover-photo"
                                            class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">图片</label>
-                                    <div class="mt-1 sm:col-span-2 sm:mt-0">
+                                    <div class="mt-1 col-span-4 sm:mt-0">
                                         <div
-                                            class="flex max-w-lg justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+                                            class="flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                                             <div class="space-y-1 text-center">
                                                 <svg class="mx-auto h-12 w-12 text-gray-400"
                                                      v-show="!imagePreview" stroke="currentColor"
@@ -169,12 +169,12 @@ const submit = () => {
                                     </div>
                                 </div>
                                 <div
-                                    class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                    class="sm:grid sm:grid-cols-5 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <label for="category"
                                            class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                                         所属类别<span class="text-red-500">*</span>
                                     </label>
-                                    <div class="mt-1 sm:col-span-2 sm:mt-0">
+                                    <div class="mt-1 col-span-4 sm:mt-0">
                                         <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                             <div class="sm:col-span-3">
                                                 <label class="block text-sm font-medium text-gray-700">
@@ -209,12 +209,12 @@ const submit = () => {
                                     </div>
                                 </div>
                                 <div
-                                    class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                    class="sm:grid sm:grid-cols-5 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <label for="about"
                                            class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                                         内容<span class="text-red-500">*</span>
                                     </label>
-                                    <div class="mt-1 sm:col-span-2 sm:mt-0">
+                                    <div class="mt-1 sm:mt-0 col-span-4">
                                         <Editor
                                             api-key="eq51qrnan6h80nwa343xxre3tnbsqkjy1rftzhzh6qoolvt7"
                                             :init="{
@@ -224,6 +224,7 @@ const submit = () => {
                                                 convert_urls: false,
                                                 file_picker_types: 'image',
                                                 images_upload_handler: imageUploadHandler,
+                                                content_style: 'img { max-width: 100%; }',
                                             }"
                                             v-model="form.body"
                                             placeholder="请填入至少三个字符的内容"
@@ -233,14 +234,14 @@ const submit = () => {
                                     </div>
                                 </div>
                                 <div
-                                    class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                    class="sm:grid sm:grid-cols-5 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <div>
                                         <div
                                             class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700"
                                             id="label-email">是否需要自动公开
                                         </div>
                                     </div>
-                                    <div class="mt-4 sm:col-span-2 sm:mt-0">
+                                    <div class="mt-4 col-span-4 sm:mt-0">
                                         <div class="max-w-lg space-y-4">
                                             <div class="relative flex items-start">
                                                 <div class="flex h-5 items-center">
@@ -257,16 +258,18 @@ const submit = () => {
                                     </div>
                                 </div>
                                 <div
-                                    class="col-span-6 sm:col-span-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                                    class="sm:grid sm:grid-cols-5 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                                     <JetLabel for="name" value="自动公开日期"/>
-                                    <JetInput
-                                        id="name"
-                                        v-model="form.released_at"
-                                        type="datetime-local"
-                                        class="mt-1 block w-full"
-                                        autocomplete="name"
-                                    />
-                                    <JetInputError :message="form.errors.released_at" class="mt-2"/>
+                                    <div class="col-span-4">
+                                        <JetInput
+                                            id="name"
+                                            v-model="form.released_at"
+                                            type="datetime-local"
+                                            class="mt-1 block w-full"
+                                            autocomplete="name"
+                                        />
+                                        <JetInputError :message="form.errors.released_at" class="mt-2"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -293,3 +296,6 @@ const submit = () => {
         </div>
     </AppLayout>
 </template>
+
+<style scoped lang="scss">
+</style>

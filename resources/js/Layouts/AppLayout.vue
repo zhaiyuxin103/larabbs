@@ -12,6 +12,7 @@ import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue';
 
 defineProps({
     title: String,
+    description: String,
     categoryParentId: {
         type: Number,
         required: false,
@@ -40,7 +41,10 @@ const logout = () => {
 
 <template>
     <div>
-        <Head :title="title"/>
+        <Head>
+            <title>{{ title }}</title>
+            <meta name="description" :content="description ?? 'LaraBBS 爱好者社区'">
+        </Head>
 
         <JetBanner/>
 
@@ -89,16 +93,24 @@ const logout = () => {
                                         <div class="w-40">
                                             <template v-for="category in categoryTree">
                                                 <div class="dropdown relative">
-                                                    <JetDropdownLink :class="{ 'bg-gray-100': categoryParentId === category.id }">
+                                                    <JetDropdownLink
+                                                        :class="{ 'bg-gray-100': categoryParentId === category.id }">
                                                         {{ category.name }}
-                                                        <svg aria-hidden="true" class="w-5 h-5 inline float-right" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                                        <svg aria-hidden="true" class="w-5 h-5 inline float-right"
+                                                             fill="currentColor" viewBox="0 0 20 20"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                                  clip-rule="evenodd"></path>
                                                         </svg>
                                                     </JetDropdownLink>
                                                     <ul class="dropdown-content absolute hidden left-40 top-0 rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white w-40"
                                                         v-if="category.children">
                                                         <li v-for="child in category.children">
-                                                            <JetDropdownLink :href="route('categories.show', child.id)" :class="{ 'bg-gray-100': categoryId === child.id }">{{ child.name }}</JetDropdownLink>
+                                                            <JetDropdownLink :href="route('categories.show', child.id)"
+                                                                             :class="{ 'bg-gray-100': categoryId === child.id }">
+                                                                {{ child.name }}
+                                                            </JetDropdownLink>
                                                         </li>
                                                     </ul>
                                                 </div>
