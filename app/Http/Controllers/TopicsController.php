@@ -9,6 +9,7 @@ use App\Models\Topic;
 use App\Models\User;
 use App\Services\CategoryService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,22 @@ class TopicsController extends Controller
         return Inertia::render('Topics/Show', [
             'topic' => $topic,
         ]);
+    }
+
+    public function uploadImage(Request $request, ImageUploadHandler $uploader): array
+    {
+        //  初始化返回数据，默认是失败的
+        $data = ['location' => null];
+        // 判断是否有上传文件，并赋值给 $file
+        if ($file = $request->file('upload_file')) {
+            // 保存图片到本地
+            $result = $uploader->save($file, 'topics', Auth::id(), 1024);
+            // 图片保存成功的话
+            if ($result) {
+                $data['location'] = config('app.url') . $result['path'];
+            }
+        }
+        return $data;
     }
 
     public function store(TopicRequest $request, Topic $topic, ImageUploadHandler $uploader): Redirector|RedirectResponse

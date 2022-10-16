@@ -11,20 +11,21 @@ import { useForm } from "@inertiajs/inertia-vue3";
 import _ from "lodash";
 import { ref } from "vue";
 import Editor from '@tinymce/tinymce-vue';
+import axios from 'axios';
 
-const props = defineProps({
+defineProps({
     categories: Object,
 });
 const form = useForm({
     _method: 'POST',
-    title: "",
-    subtitle: "",
-    image: "",
-    parent_id: "",
-    category_id: "",
-    body: "",
+    title: null,
+    subtitle: null,
+    image: null,
+    parent_id: null,
+    category_id: null,
+    body: null,
     is_released: false,
-    released_at: "",
+    released_at: null,
 });
 const imagePreview = ref(null);
 const imageInput = ref(null);
@@ -50,6 +51,19 @@ const clearImageInput = () => {
         imageInput.value.value = null;
     }
 };
+const imageUploadHandler = (blobInfo, progress) => new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append('upload_file', blobInfo.blob(), blobInfo.filename());
+    axios.post(route('topics.upload_image'), formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    }).then((response) => {
+        resolve(response.data.location);
+    }).catch((error) => {
+        console.log(error);
+    })
+});
 const submit = () => {
     if (imageInput.value) {
         form.image = imageInput.value.files[0];
@@ -204,7 +218,12 @@ const submit = () => {
                                         <Editor
                                             api-key="eq51qrnan6h80nwa343xxre3tnbsqkjy1rftzhzh6qoolvt7"
                                             :init="{
-                                                plugins: 'lists link image table code help wordcount'
+                                                plugins: 'advlist autolink link image media lists preview code help fullscreen table autoresize codesample wordcount',
+                                                toolbar: 'undo redo | preview fullscreen | styleselect | fontsizeselect bold italic underline strikethrough forecolor backcolor | link image media blockquote removeformat codesample | alignleft aligncenter alignright  alignjustify| indent outdent bullist numlist table subscript superscript | code',
+                                                min_height: 400,
+                                                convert_urls: false,
+                                                file_picker_types: 'image',
+                                                images_upload_handler: imageUploadHandler,
                                             }"
                                             v-model="form.body"
                                             placeholder="请填入至少三个字符的内容"

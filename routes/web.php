@@ -37,4 +37,5 @@ Route::middleware([
     Route::resource('topics', TopicsController::class);
     Route::get('users/{user}/topics', [TopicsController::class, 'userIndex'])->name('users.topics.index');
     Route::resource('categories', CategoriesController::class);
+    Route::post('upload_image', [TopicsController::class, 'uploadImage'])->name('topics.upload_image');
 });

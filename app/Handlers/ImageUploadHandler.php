@@ -43,7 +43,7 @@ class ImageUploadHandler
         }
 
         return [
-            'path' => "$folder_name/$filename",
+            'path' => "/$folder_name/$filename",
         ];
     }
 
