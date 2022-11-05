@@ -64,6 +64,7 @@ class TopicResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')->label('ID'),
                 Tables\Columns\TextColumn::make('title')->label('标题'),
                 Tables\Columns\TextColumn::make('subtitle')->label('副标题'),
                 Tables\Columns\ImageColumn::make('image')->label('图片')->rounded(),
