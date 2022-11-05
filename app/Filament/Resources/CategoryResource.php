@@ -20,7 +20,7 @@ class CategoryResource extends Resource
 
     protected static ?string $breadcrumb = '话题类目';
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'iconsax-bro-category-2';
 
     protected static ?string $navigationLabel = '类目管理';
 
@@ -33,10 +33,12 @@ class CategoryResource extends Resource
                 Forms\Components\Select::make('parent_id')
                     ->label('父类目')
                     ->options(Category::where('is_directory', true)->pluck('name', 'id'))
-                    ->relationship('parent', 'name')
                     ->searchable(),
                 Forms\Components\Toggle::make('show')->label('是否显示')->required(),
                 Forms\Components\TextInput::make('order')->label('排序')->required(),
+                Forms\Components\DateTimePicker::make('created_at')->label('创建时间')->disabled(),
+                Forms\Components\DateTimePicker::make('updated_at')->label('编辑时间')->disabled(),
+                Forms\Components\DateTimePicker::make('deleted_at')->label('删除时间')->disabled(),
             ]);
     }
 
