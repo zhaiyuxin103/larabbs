@@ -19,7 +19,8 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "mews/purifier": "^3.3",
-        "tightenco/ziggy": "^1.0"
+        "tightenco/ziggy": "^1.0",
+        "viacreative/sudo-su": "^1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

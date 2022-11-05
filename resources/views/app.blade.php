@@ -16,5 +16,9 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
+
+        @if (app()->isLocal())
+            @include('sudosu::user-selector')
+        @endif
     </body>
 </html>

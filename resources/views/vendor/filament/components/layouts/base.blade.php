@@ -123,5 +123,9 @@
         {{ \Filament\Facades\Filament::renderHook('scripts.end') }}
 
         {{ \Filament\Facades\Filament::renderHook('body.end') }}
+
+        @if (app()->isLocal())
+            @include('sudosu::user-selector')
+        @endif
     </body>
 </html>
