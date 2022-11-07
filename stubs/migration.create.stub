@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('{{ table }}', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('自增长 ID');
+            $table->boolean('show')->default(true)->comment('是否显示');
+            $table->integer('order')->default(0)->comment('排序');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
