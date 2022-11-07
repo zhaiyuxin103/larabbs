@@ -9,6 +9,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "althinect/filament-spatie-roles-permissions": "^1.0",
+        "blade-ui-kit/blade-icons": "^1.4",
+        "codeat3/blade-phosphor-icons": "^1.4",
         "doctrine/dbal": "^3.3",
         "filament/filament": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
@@ -19,6 +22,7 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "mews/purifier": "^3.3",
+        "saade/blade-iconsax": "^1.0",
         "tightenco/ziggy": "^1.0",
         "viacreative/sudo-su": "^1.1"
     },

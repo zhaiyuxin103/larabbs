@@ -48,6 +48,7 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('current_team_id'),
                 Forms\Components\TextInput::make('profile_photo_path')
                     ->maxLength(2048),
+                Forms\Components\Select::make('roles')->multiple()->relationship('roles', 'name'),
             ]);
     }
 
