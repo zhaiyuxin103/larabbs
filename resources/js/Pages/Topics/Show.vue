@@ -26,14 +26,18 @@
                     <div v-html="topic.body"></div>
                     <div>
                         <hr class="my-4">
-                        <div class="flex items-center justify-between">
-                            <Link :href="route('topics.create')" class="text-gray-500">
-                                <PencilSquareIcon class="inline w-4 h-4"></PencilSquareIcon>
-                                编辑
+                        <div class="flex items-center">
+                            <Link :href="route('topics.edit', topic.id)" class="text-gray-500 mr-4">
+                                <JetSecondaryButton>
+                                    <PencilSquareIcon class="inline w-4 h-4 mr-2"></PencilSquareIcon>
+                                    编辑
+                                </JetSecondaryButton>
                             </Link>
                             <Link :href="route('topics.create')" class="text-red-500">
-                                <TrashIcon class="inline w-4 h-4"></TrashIcon>
-                                删除
+                                <JetDangerButton>
+                                    <TrashIcon class="inline w-4 h-4 mr-2"></TrashIcon>
+                                    删除
+                                </JetDangerButton>
                             </Link>
                         </div>
                     </div>
@@ -66,6 +70,8 @@ import { Link, Head } from '@inertiajs/inertia-vue3';
 import { formatDistance } from 'date-fns'
 import { zhCN } from 'date-fns/locale';
 import { ChatBubbleLeftRightIcon, PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline';
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
+import JetDangerButton from "@/Jetstream/DangerButton.vue";
 
 defineProps({
     topic: Object,

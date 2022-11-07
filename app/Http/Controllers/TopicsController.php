@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Topic;
 use App\Models\User;
 use App\Services\CategoryService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -77,18 +78,38 @@ class TopicsController extends Controller
         $topic->user_id = Auth::id();
         $topic->save();
 
-        return Redirect::route('topics.show', $topic->id)->with('success', '帖子创建成功！');
+        return Redirect::route('topics.show', $topic->id)->with('flash.banner', '帖子创建成功！');
     }
 
     public function show(Topic $topic): Response
     {
         return Inertia::render('Topics/Show', [
-            'topic' => Topic::with(['user'])->find($topic->id),
+            'categories' => Category::where('show', true)->orderBy('order')->get(),
+            'topic' => Topic::with(['user', 'category.parent'])->find($topic->id),
         ]);
     }
 
-    public function edit(): Response
+    /**
+     * @throws AuthorizationException
+     */
+    public function edit(Topic $topic, TopicRequest $request): Response
     {
-        return Inertia::render('Topics/Edit');
+        $this->authorize('update', $topic);
+
+        return Inertia::render('Topics/Edit', [
+            'topic' => Topic::with(['category.parent'])->find($topic->id),
+            'categories' => Category::where('show', true)->orderBy('order')->get(),
+        ]);
+    }
+
+    /**
+     * @throws AuthorizationException
+     */
+    public function update(TopicRequest $request, Topic $topic): Redirector|RedirectResponse
+    {
+        $this->authorize('update', $topic);
+        $topic->update($request->all());
+
+        return Redirect::route('topics.show', $topic->id)->with('flash.banner', '帖子更新成功！');
     }
 }
