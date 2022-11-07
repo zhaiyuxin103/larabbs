@@ -78,7 +78,7 @@ class TopicsController extends Controller
         $topic->user_id = Auth::id();
         $topic->save();
 
-        return Redirect::route('topics.show', $topic->id)->with('flash.banner', '帖子创建成功！');
+        return Redirect::route('topics.show', $topic->id)->with('flash.banner', '话题创建成功！');
     }
 
     public function show(Topic $topic): Response
@@ -110,6 +110,17 @@ class TopicsController extends Controller
         $this->authorize('update', $topic);
         $topic->update($request->all());
 
-        return Redirect::route('topics.show', $topic->id)->with('flash.banner', '帖子更新成功！');
+        return Redirect::route('topics.show', $topic->id)->with('flash.banner', '话题更新成功！');
+    }
+
+    /**
+     * @throws AuthorizationException
+     */
+    public function destroy(Topic $topic): Redirector|RedirectResponse
+    {
+        $this->authorize('delete', $topic);
+        $topic->delete();
+
+        return Redirect::route('topics.index')->with('flash.banner', '话题删除成功！');
     }
 }

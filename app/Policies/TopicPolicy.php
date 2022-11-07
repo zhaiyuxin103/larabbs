@@ -54,7 +54,7 @@ class TopicPolicy
      */
     public function update(User $user, Topic $topic): Response|bool
     {
-        return $topic->user_id === $user->id;
+        return $user->isAuthorOf($topic);
     }
 
     /**
@@ -66,7 +66,7 @@ class TopicPolicy
      */
     public function delete(User $user, Topic $topic): Response|bool
     {
-        return true;
+        return $user->isAuthorOf($topic);
     }
 
     /**
