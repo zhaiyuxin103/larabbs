@@ -90,7 +90,7 @@ class TopicsController extends Controller
 
         return Inertia::render('Topics/Show', [
             'categories' => Category::where('show', true)->orderBy('order')->get(),
-            'topic' => Topic::with(['user', 'category.parent'])->find($topic->id),
+            'topic' => Topic::with(['user', 'category.parent', 'replies.user', 'replies.children.user'])->find($topic->id),
         ]);
     }
 

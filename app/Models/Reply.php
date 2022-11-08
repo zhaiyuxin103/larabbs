@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reply extends Model
@@ -24,5 +25,10 @@ class Reply extends Model
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Reply::class);
+    }
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(Reply::class, 'parent_id');
     }
 }

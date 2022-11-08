@@ -260,6 +260,7 @@ const logout = () => {
                       <font-awesome-icon icon="fa-regular fa-comment-dots" class="mr-2"/>
                       Replies
                     </JetDropdownLink>
+                    <div class="border-t border-gray-100"/>
                     <div class="block px-4 py-2 text-xs text-gray-400" v-if="$page.props.can.dashboard">
                       Admin
                     </div>
@@ -382,6 +383,8 @@ const logout = () => {
                 Replies
               </JetResponsiveNavLink>
 
+              <div class="border-t border-gray-200"/>
+
               <div class="block px-4 py-2 text-xs text-gray-400">
                 Admin
               </div>
@@ -389,6 +392,8 @@ const logout = () => {
                 <font-awesome-icon icon="fa-solid fa-gauge-high" class="mr-2"/>
                 Dashboard
               </JetResponsiveNavLink>
+
+              <div class="border-t border-gray-200"/>
 
               <!-- Authentication -->
               <form method="POST" @submit.prevent="logout">

@@ -7,8 +7,8 @@
     </template>
 
     <div class="pt-4 sm:pt-6 lg:pt-8 pb-10">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+      <div class="md:flex justify-between items-start max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="w-full md:w-2/3 bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 md:mr-8">
           <div>
             <Link class="mr-4" :href="_.head(_.split($page.url, '?')) + '?order=default'">
               <span v-if="$page.url.endsWith('recent')">最后回复</span>
@@ -25,6 +25,7 @@
                       :current-page="topics.current_page" :last-page="topics.last_page"
                       :prev-page-url="topics.prev_page_url" :next-page-url="topics.next_page_url"/>
         </div>
+        <Sidebar class="grow"></Sidebar>
       </div>
     </div>
   </AppLayout>
@@ -36,6 +37,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import JetButton from '@/Jetstream/Button.vue';
 import TopicList from '@/Layouts/TopicList.vue';
 import Pagination from '@/Components/Pagination.vue';
+import Sidebar from "@/Components/Sidebar.vue";
 import _ from "lodash";
 
 defineProps({

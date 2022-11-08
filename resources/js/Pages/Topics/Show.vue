@@ -10,38 +10,46 @@
       </h2>
     </template>
 
-    <div class="py-12">
-      <div class="flex justify-between items-start max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div
-          class="w-2/3 mr-8 transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:w-full sm:p-6 prose-base prose-slate">
-          <h1 class="text-center mt-4 mb-4">
-            {{ topic.title }}
-          </h1>
-          <div class="text-center text-gray-500">
-            {{ formatDistance(new Date(topic.created_at), new Date(), {locale: zhCN}) }}
-            ⋅
-            <ChatBubbleLeftRightIcon class="inline w-4 h-4"></ChatBubbleLeftRightIcon>
-            {{ topic.reply_count }}
-          </div>
-          <div v-html="topic.body"></div>
-          <div v-if="$page.props.user.id === topic.user_id">
-            <hr class="my-4">
-            <div class="flex items-center">
-              <Link :href="route('topics.edit', topic.id)" class="text-gray-500 mr-4">
-                <JetSecondaryButton>
-                  <PencilSquareIcon class="inline w-4 h-4 mr-2"></PencilSquareIcon>
-                  编辑
-                </JetSecondaryButton>
-              </Link>
-              <JetDangerButton @click="confirmingTopicDeletion = true">
-                <TrashIcon class="inline w-4 h-4 mr-2"></TrashIcon>
-                删除
-              </JetDangerButton>
+    <div class="pt-4 sm:pt-6 lg:pt-8 pb-12">
+      <div class="md:flex justify-between items-start max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="w-full md:w-2/3 mr-8 md:px-0">
+          <div
+            class="transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:w-full sm:p-6 prose-base prose-slate">
+            <h1 class="text-center mt-4 mb-4">
+              {{ topic.title }}
+            </h1>
+            <div class="text-center text-gray-500">
+              {{ formatDistance(new Date(topic.created_at), new Date(), {locale: zhCN}) }}
+              ⋅
+              <ChatBubbleLeftRightIcon class="inline w-4 h-4"></ChatBubbleLeftRightIcon>
+              {{ topic.reply_count }}
+            </div>
+            <div v-html="topic.body"></div>
+            <div v-if="$page.props.user.id === topic.user_id">
+              <hr class="my-4">
+              <div class="flex items-center">
+                <Link :href="route('topics.edit', topic.id)" class="text-gray-500 mr-4">
+                  <JetSecondaryButton>
+                    <PencilSquareIcon class="inline w-4 h-4 mr-2"></PencilSquareIcon>
+                    编辑
+                  </JetSecondaryButton>
+                </Link>
+                <JetDangerButton @click="confirmingTopicDeletion = true">
+                  <TrashIcon class="inline w-4 h-4 mr-2"></TrashIcon>
+                  删除
+                </JetDangerButton>
+              </div>
             </div>
           </div>
+          <div
+            class="mt-4 sm:mt-6 lg:mt-8 transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:w-full sm:p-6 prose-base prose-slate">
+            <ReplyBox :topic="topic"></ReplyBox>
+            <ReplyList :replies="topic.replies"></ReplyList>
+          </div>
         </div>
+
         <div
-          class="flex w-1/3 items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          class="md:flex w-full md:w-1/3 items-end justify-center pt-4 text-center sm:items-center sm:p-0">
           <div
             class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:w-full sm:max-w-sm sm:p-6">
             <img class="block w-4/5 rounded-md mx-auto"
@@ -98,6 +106,8 @@ import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetDangerButton from "@/Jetstream/DangerButton.vue";
 import { ref } from "vue";
 import JetDialogModal from '@/Jetstream/DialogModal.vue';
+import ReplyBox from "@/Components/ReplyBox.vue";
+import ReplyList from "@/Components/ReplyList.vue";
 
 const props = defineProps({
   topic: Object,

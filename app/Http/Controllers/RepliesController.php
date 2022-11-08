@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reply;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Inertia\Inertia;
 
-class ReplyController extends Controller
+class RepliesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +18,14 @@ class ReplyController extends Controller
     public function index(): Response
     {
         //
+    }
+
+    public function userIndex(User $user): \Inertia\Response
+    {
+        return Inertia::render('Users/Replies', [
+            'replies' => Reply::where('user_id', $user->id)->with(['topic'])->paginate(),
+            'page' => Request()->input('page', 1),
+        ]);
     }
 
     /**
@@ -31,7 +41,7 @@ class ReplyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function store(Request $request): Response
@@ -42,7 +52,7 @@ class ReplyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Reply $reply
+     * @param  Reply  $reply
      * @return Response
      */
     public function show(Reply $reply): Response
@@ -53,7 +63,7 @@ class ReplyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Reply $reply
+     * @param  Reply  $reply
      * @return Response
      */
     public function edit(Reply $reply): Response
@@ -64,8 +74,8 @@ class ReplyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Reply $reply
+     * @param  Request  $request
+     * @param  Reply  $reply
      * @return Response
      */
     public function update(Request $request, Reply $reply): Response
@@ -76,7 +86,7 @@ class ReplyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Reply $reply
+     * @param  Reply  $reply
      * @return Response
      */
     public function destroy(Reply $reply): Response

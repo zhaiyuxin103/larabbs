@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\TopicsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -39,4 +40,5 @@ Route::middleware([
     Route::get('users/{user}/topics', [TopicsController::class, 'userIndex'])->name('users.topics.index');
     Route::resource('categories', CategoriesController::class);
     Route::post('upload_image', [TopicsController::class, 'uploadImage'])->name('topics.upload_image');
+    Route::get('users/{user}/replies', [RepliesController::class, 'userIndex'])->name('users.replies.index');
 });

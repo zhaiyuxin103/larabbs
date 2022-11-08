@@ -6,7 +6,7 @@
       </h2>
     </template>
 
-    <div class="pt-4 md:pt-10 pb-10">
+    <div class="pt-4 sm:py-6 lg:pt-8 pb-10">
       <div class="md:flex justify-between items-start max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 md:mr-8">
           <div>
