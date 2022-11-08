@@ -21,70 +21,38 @@
           </div>
           <div class="reply-content text-secondary mb-[10px]" v-html="reply.content"></div>
           <div class="flex justify-end meta text-[#999999]">
-            <JetButton class="justify-center whitespace-nowrap" @click="showReplyBoxIds.push(reply.id)">
+            <JetButton class="justify-center whitespace-nowrap" @click="replyIds.value = _.indexOf(replyIds, reply.id) ? replyIds.push(reply.id) : _.pull(replyIds, reply.id)">
               <font-awesome-icon icon="fa-solid fa-reply-all" class="md:mr-2"/>
               <span class="hidden md:block">回复</span>
             </JetButton>
-            <Link :href="route('replies.edit', reply.id)" class="block text-gray-500 ml-4" v-if="$page.props.user.id === reply.user_id">
+            <Link :href="route('replies.edit', reply.id)" class="block text-gray-500 ml-4"
+                  v-if="$page.props.user.id === reply.user_id">
               <JetSecondaryButton>
                 <PencilSquareIcon class="inline w-4 h-4 md:mr-2"></PencilSquareIcon>
                 <span class="hidden md:block">编辑</span>
               </JetSecondaryButton>
             </Link>
-            <JetDangerButton @click="confirmingTopicDeletion = true" class="ml-4" v-if="$page.props.user.id === reply.user_id">
+            <JetDangerButton @click="confirmingTopicDeletion = true" class="ml-4"
+                             v-if="$page.props.user.id === reply.user_id">
               <TrashIcon class="inline w-4 h-4 md:mr-2"></TrashIcon>
               <span class="hidden md:block">删除</span>
             </JetDangerButton>
           </div>
-          <div class="replies mt-4" v-if="_.indexOf(showReplyBoxIds, reply.id) !== -1">
-            <ReplyBox :child="true" :parent_id="reply.id"></ReplyBox>
+          <div class="replies mt-4 block" v-if="_.indexOf(replyIds, reply.id) !== -1">
+            <ReplyBox :child="true" :parent-id="reply.id" :topic="topic"
+                      @update-reply-ids="updateReplyIds"></ReplyBox>
           </div>
         </div>
       </div>
       <div class="inner-replies ml-12">
-        <div class="flex items-start mb-[10px]" v-for="child in reply.children">
-          <img class="block w-12 mr-4 my-0 flex-none overflow-hidden rounded-full"
-               :src="child.user.profile_photo_url" alt="">
-          <div class="flex-auto">
-            <div class="flex items-center">
-              <div class="font-semibold">管理者</div>
-              <tippy>
-                <div class="text-[12px] text-[#999999] leading-[22px] ml-[20px]">
-                  {{ formatDistance(new Date(child.created_at), new Date(), {locale: zhCN}) }}
-                </div>
-                <template #content>
-                  发布于 {{ child.created_at }}
-                </template>
-              </tippy>
-            </div>
-            <div class="reply-content text-secondary mb-[10px]" v-html="child.content"></div>
-            <div class="flex justify-end meta text-[#999999]">
-              <JetButton class="justify-center whitespace-nowrap" @click="showReplyBoxIds.push(child.id)">
-                <font-awesome-icon icon="fa-solid fa-reply-all" class="md:mr-2"/>
-                <span class="hidden md:block">回复</span>
-              </JetButton>
-              <Link :href="route('replies.edit', reply.id)" class="block text-gray-500 ml-4" v-if="$page.props.user.id === reply.user_id">
-                <JetSecondaryButton>
-                  <PencilSquareIcon class="inline w-4 h-4 md:mr-2"></PencilSquareIcon>
-                  <span class="hidden md:block">编辑</span>
-                </JetSecondaryButton>
-              </Link>
-              <JetDangerButton @click="confirmingTopicDeletion = true" class="ml-4" v-if="$page.props.user.id === reply.user_id">
-                <TrashIcon class="inline w-4 h-4 md:mr-2"></TrashIcon>
-                <span class="hidden md:block">删除</span>
-              </JetDangerButton>
-            </div>
-            <div class="replies mt-4" v-if="_.indexOf(showReplyBoxIds, child.id) !== -1">
-              <ReplyBox :child="true" :parent_id="child.id"></ReplyBox>
-            </div>
-          </div>
-        </div>
+        <ReplyList :topic="topic" :replies="reply.children"></ReplyList>
       </div>
     </template>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { formatDistance } from 'date-fns'
 import { zhCN } from 'date-fns/locale';
 import ReplyBox from "@/Components/ReplyBox.vue";
@@ -92,14 +60,20 @@ import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetDangerButton from "@/Jetstream/DangerButton.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import { PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline';
+import { Link } from '@inertiajs/inertia-vue3';
+import ReplyList from "@/Components/ReplyList.vue";
 import _ from "lodash";
-import { ref } from "vue";
 
 defineProps({
+  topic: Object,
   replies: Object,
 });
 
-const showReplyBoxIds = ref([]);
+const replyIds = ref([]);
+
+const updateReplyIds = (reply_id) => {
+  _.pull(replyIds.value, reply_id);
+}
 </script>
 
 <style scoped>

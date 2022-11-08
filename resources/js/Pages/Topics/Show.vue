@@ -44,7 +44,7 @@
           <div
             class="mt-4 sm:mt-6 lg:mt-8 transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:w-full sm:p-6 prose-base prose-slate">
             <ReplyBox :topic="topic"></ReplyBox>
-            <ReplyList :replies="topic.replies"></ReplyList>
+            <ReplyList :topic="topic" :replies="topic.replies"></ReplyList>
           </div>
         </div>
 

@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Reply;
 use App\Models\Topic;
 use App\Observers\CategoryObserver;
+use App\Observers\ReplyObserver;
 use App\Observers\TopicObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -40,6 +42,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Reply::observe(ReplyObserver::class);
         Topic::observe(TopicObserver::class);
     }
 

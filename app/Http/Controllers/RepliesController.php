@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReplyRequest;
 use App\Models\Reply;
+use App\Models\Topic;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class RepliesController extends Controller
@@ -41,12 +47,20 @@ class RepliesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
-     * @return Response
+     * @param  ReplyRequest  $request
+     * @param  Reply  $reply
+     * @return Redirector|RedirectResponse
      */
-    public function store(Request $request): Response
+    public function store(ReplyRequest $request, Reply $reply): Redirector|RedirectResponse
     {
-        //
+        $topic = Topic::find($request->input('topic_id'));
+        $reply->topic_id = $topic->id;
+        $reply->user_id = Auth::id();
+        $reply->parent_id = $request->input('parent_id');
+        $reply->content = $request->input('content');
+        $reply->save();
+
+        return Redirect::route('topics.show', [$topic->id, $topic->slug])->with('flash.banner', '评论创建成功！');
     }
 
     /**
