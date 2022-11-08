@@ -8,8 +8,8 @@
             </div>
             <div class="grow">
                 <div class="flex justify-between flex-auto">
-                    <Link :href="route('topics.show', topic.id)" class="line-clamp-1">{{ topic.title }}</Link>
-                    <Link :href="route('topics.show', topic.id)">
+                    <Link :href="route('topics.show', [topic.id, topic.slug])" class="line-clamp-1">{{ topic.title }}</Link>
+                    <Link :href="route('topics.show', [topic.id, topic.slug])">
                         <span class="bg-gray-300 rounded-full px-2 text-white">{{ topic.reply_count }}</span>
                     </Link>
                 </div>

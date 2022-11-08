@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'youdao' => [
+        'appid' => env('YOUDAO_APPID'),
+        'key' => env('YOUDAO_KEY'),
+    ],
+
 ];

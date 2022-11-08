@@ -78,11 +78,16 @@ class TopicsController extends Controller
         $topic->user_id = Auth::id();
         $topic->save();
 
-        return Redirect::route('topics.show', $topic->id)->with('flash.banner', '话题创建成功！');
+        return Redirect::route('topics.show', [$topic->id, $topic->slug])->with('flash.banner', '话题创建成功！');
     }
 
-    public function show(Topic $topic): Response
+    public function show(TopicRequest $request, Topic $topic): Redirector|RedirectResponse|Response
     {
+        // URL 矫正
+        if (! empty($topic->slug) && $topic->slug !== $request->slug) {
+            return Redirect::route('topics.show', [$topic->id, $topic->slug]);
+        }
+
         return Inertia::render('Topics/Show', [
             'categories' => Category::where('show', true)->orderBy('order')->get(),
             'topic' => Topic::with(['user', 'category.parent'])->find($topic->id),
@@ -99,6 +104,7 @@ class TopicsController extends Controller
         return Inertia::render('Topics/Edit', [
             'topic' => Topic::with(['category.parent'])->find($topic->id),
             'categories' => Category::where('show', true)->orderBy('order')->get(),
+            'previous' => url()->previous(),
         ]);
     }
 
@@ -110,7 +116,7 @@ class TopicsController extends Controller
         $this->authorize('update', $topic);
         $topic->update($request->all());
 
-        return Redirect::route('topics.show', $topic->id)->with('flash.banner', '话题更新成功！');
+        return Redirect::route('topics.show', [$topic->id, $topic->slug])->with('flash.banner', '话题更新成功！');
     }
 
     /**

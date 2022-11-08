@@ -34,7 +34,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    Route::resource('topics', TopicsController::class);
+    Route::resource('topics', TopicsController::class)->only(['index', 'create', 'store', 'update', 'edit', 'destroy']);
+    Route::get('topics/{topic}/{slug?}', [TopicsController::class, 'show'])->name('topics.show');
     Route::get('users/{user}/topics', [TopicsController::class, 'userIndex'])->name('users.topics.index');
     Route::resource('categories', CategoriesController::class);
     Route::post('upload_image', [TopicsController::class, 'uploadImage'])->name('topics.upload_image');

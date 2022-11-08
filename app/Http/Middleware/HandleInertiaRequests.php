@@ -43,7 +43,7 @@ class HandleInertiaRequests extends Middleware
             },
             'categoryTree' => (new CategoryService())->getCategoryTree(),
             'can' => [
-                'dashboard' => $request->user()->hasPermissionTo('dashboard'),
+                'dashboard' => optional($request->user())->hasPermissionTo('dashboard'),
             ],
         ]);
     }
