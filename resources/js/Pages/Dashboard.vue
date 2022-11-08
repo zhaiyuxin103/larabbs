@@ -4,19 +4,19 @@ import Welcome from '@/Jetstream/Welcome.vue';
 </script>
 
 <template>
-    <AppLayout title="Dashboard">
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
-            </h2>
-        </template>
+  <AppLayout title="Dashboard">
+    <template #header>
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        Dashboard
+      </h2>
+    </template>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <Welcome />
-                </div>
-            </div>
+    <div class="pt-4 sm:pt-6 lg:pt-8 pb-12">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+          <Welcome/>
         </div>
-    </AppLayout>
+      </div>
+    </div>
+  </AppLayout>
 </template>

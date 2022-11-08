@@ -160,11 +160,13 @@ const logout = () => {
                         <!-- Team Settings -->
                         <JetDropdownLink
                           :href="route('teams.show', $page.props.user.current_team)">
+                          <font-awesome-icon icon="fa-solid fa-gears" class="mr-2"/>
                           Team Settings
                         </JetDropdownLink>
 
                         <JetDropdownLink v-if="$page.props.jetstream.canCreateTeams"
                                          :href="route('teams.create')">
+                          <font-awesome-icon icon="fa-solid fa-user-plus" class="mr-2"/>
                           Create New Team
                         </JetDropdownLink>
 
@@ -254,6 +256,10 @@ const logout = () => {
                       <font-awesome-icon icon="fa-solid fa-cubes-stacked" class="mr-2"/>
                       Topics
                     </JetDropdownLink>
+                    <JetDropdownLink :href="`/users/${$page.props.user.id}/replies`">
+                      <font-awesome-icon icon="fa-regular fa-comment-dots" class="mr-2"/>
+                      Replies
+                    </JetDropdownLink>
                     <div class="block px-4 py-2 text-xs text-gray-400" v-if="$page.props.can.dashboard">
                       Admin
                     </div>
@@ -310,9 +316,11 @@ const logout = () => {
              class="sm:hidden">
           <div class="pt-2 pb-3 space-y-1">
             <JetResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+              <font-awesome-icon icon="fa-solid fa-gauge-high" class="mr-2"/>
               Dashboard
             </JetResponsiveNavLink>
             <JetResponsiveNavLink :href="route('topics.index')" :active="route().current('topics.index')">
+              <font-awesome-icon icon="fa-solid fa-cubes-stacked" class="mr-2"/>
               Topics
             </JetResponsiveNavLink>
           </div>
@@ -340,20 +348,52 @@ const logout = () => {
             </div>
 
             <div class="mt-3 space-y-1">
+              <div class="border-t border-gray-200"/>
+
+              <div class="block px-4 py-2 text-xs text-gray-400">
+                Manage Account
+              </div>
               <JetResponsiveNavLink :href="route('profile.show')"
                                     :active="route().current('profile.show')">
+                <font-awesome-icon icon="fa-solid fa-user-pen" class="mr-2"/>
                 Profile
               </JetResponsiveNavLink>
 
               <JetResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures"
                                     :href="route('api-tokens.index')"
                                     :active="route().current('api-tokens.index')">
+                <font-awesome-icon icon="fa-solid fa-key" class="mr-2"/>
                 API Tokens
+              </JetResponsiveNavLink>
+
+              <div class="border-t border-gray-200"/>
+
+              <div class="block px-4 py-2 text-xs text-gray-400">
+                Topics & Replies
+              </div>
+              <JetResponsiveNavLink :href="`/users/${$page.props.user.id}/topics`"
+                                    :active="route().current('users.topics.index')">
+                <font-awesome-icon icon="fa-solid fa-cubes-stacked" class="mr-2"/>
+                Topics
+              </JetResponsiveNavLink>
+              <JetResponsiveNavLink :href="`/users/${$page.props.user.id}/replies`"
+                                    :active="route().current('users.replies.index')">
+                <font-awesome-icon icon="fa-regular fa-comment-dots" class="mr-2"/>
+                Replies
+              </JetResponsiveNavLink>
+
+              <div class="block px-4 py-2 text-xs text-gray-400">
+                Admin
+              </div>
+              <JetResponsiveNavLink href="/admin">
+                <font-awesome-icon icon="fa-solid fa-gauge-high" class="mr-2"/>
+                Dashboard
               </JetResponsiveNavLink>
 
               <!-- Authentication -->
               <form method="POST" @submit.prevent="logout">
                 <JetResponsiveNavLink as="button">
+                  <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="mr-2"/>
                   Log Out
                 </JetResponsiveNavLink>
               </form>
@@ -369,12 +409,14 @@ const logout = () => {
                 <!-- Team Settings -->
                 <JetResponsiveNavLink :href="route('teams.show', $page.props.user.current_team)"
                                       :active="route().current('teams.show')">
+                  <font-awesome-icon icon="fa-solid fa-gears" class="mr-2"/>
                   Team Settings
                 </JetResponsiveNavLink>
 
                 <JetResponsiveNavLink v-if="$page.props.jetstream.canCreateTeams"
                                       :href="route('teams.create')"
                                       :active="route().current('teams.create')">
+                  <font-awesome-icon icon="fa-solid fa-user-plus" class="mr-2"/>
                   Create New Team
                 </JetResponsiveNavLink>
 

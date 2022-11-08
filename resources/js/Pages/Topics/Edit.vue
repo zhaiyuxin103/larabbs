@@ -75,14 +75,14 @@ const submit = () => {
     <template #header>
       <h2 class="flex items-center font-semibold text-xl text-gray-800 leading-tight">
         <PencilSquareIcon class="w-8 h-8 mr-2"></PencilSquareIcon>
-        编辑话题 - {{ topic.title }}
+        编辑话题 <span class="hidden md:block">&nbsp;- {{ topic.title }}</span>
       </h2>
     </template>
 
-    <div class="py-12">
+    <div class="pt-4 sm:pt-6 lg:pt-8 pb-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-          <form class="space-y-8 divide-y divide-gray-200 p-20" @submit.prevent="submit">
+          <form class="space-y-8 divide-y divide-gray-200 p-4 md:p-20" @submit.prevent="submit">
             <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
               <div class="space-y-6 sm:space-y-5">
                 <div>

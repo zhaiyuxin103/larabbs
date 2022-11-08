@@ -1,31 +1,33 @@
 <template>
-    <AppLayout title="话题列表">
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                我的话题列表
-            </h2>
-        </template>
+  <AppLayout title="话题列表">
+    <template #header>
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        我的话题列表
+      </h2>
+    </template>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
-                    <div>
-                        <Link class="mr-4" :href="_.head(_.split($page.url, '?')) + '?order=default'">
-                            <span v-if="$page.url.endsWith('recent')">最后回复</span>
-                            <JetButton v-else>最后回复</JetButton>
-                        </Link>
-                        <Link :href="_.head(_.split($page.url, '?')) + '?order=recent'">
-                            <JetButton v-if="$page.url.endsWith('recent')">最新发布</JetButton>
-                            <span v-else>最新发布</span>
-                        </Link>
-                    </div>
-                    <hr class="mt-4">
-                    <TopicList :topics="topics.data"></TopicList>
-                    <pagination :links="topics.links" :page="page" :from="topics.from" :to="topics.to" :total="topics.total" :current-page="topics.current_page" :last-page="topics.last_page" :prev-page-url="topics.prev_page_url" :next-page-url="topics.next_page_url" />
-                </div>
-            </div>
+    <div class="pt-4 sm:pt-6 lg:pt-8 pb-10">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+          <div>
+            <Link class="mr-4" :href="_.head(_.split($page.url, '?')) + '?order=default'">
+              <span v-if="$page.url.endsWith('recent')">最后回复</span>
+              <JetButton v-else>最后回复</JetButton>
+            </Link>
+            <Link :href="_.head(_.split($page.url, '?')) + '?order=recent'">
+              <JetButton v-if="$page.url.endsWith('recent')">最新发布</JetButton>
+              <span v-else>最新发布</span>
+            </Link>
+          </div>
+          <hr class="mt-4">
+          <TopicList :topics="topics.data"></TopicList>
+          <pagination :links="topics.links" :page="page" :from="topics.from" :to="topics.to" :total="topics.total"
+                      :current-page="topics.current_page" :last-page="topics.last_page"
+                      :prev-page-url="topics.prev_page_url" :next-page-url="topics.next_page_url"/>
         </div>
-    </AppLayout>
+      </div>
+    </div>
+  </AppLayout>
 </template>
 
 <script setup>
@@ -37,8 +39,8 @@ import Pagination from '@/Components/Pagination.vue';
 import _ from "lodash";
 
 defineProps({
-    topics: Object,
-    page: Number,
+  topics: Object,
+  page: Number,
 });
 </script>
 

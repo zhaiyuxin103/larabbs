@@ -1,7 +1,7 @@
 <template>
-  <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+  <div class="flex min-h-full items-end justify-center pt-4 text-center sm:items-center sm:p-0">
     <div
-      class="rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl sm:w-full sm:max-w-sm sm:p-6">
+      class="rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl w-full sm:max-w-sm sm:p-6">
       <Link :href="route('topics.create')">
         <JetButton class="w-full justify-center whitespace-nowrap">
           <PencilIcon class="w-4 h-4 mr-4"></PencilIcon>
