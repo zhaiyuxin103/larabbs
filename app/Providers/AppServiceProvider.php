@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use App\View\Composers\CategoryTreeComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Saade\FilamentLaravelLog\Pages\ViewLog;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,5 +32,12 @@ class AppServiceProvider extends ServiceProvider
         // 当 Laravel 渲染 topics.index 和 topics.show 模版时，就会使用 CategoryComposer 这个来注入类目树变量
         // 同时 Laravel 还支持通配符，例如 topics.* 即代表当渲染 topics 目录下的模版时都会执行这个 Composer
         View::composer(['topics.index', 'topics.show'], CategoryTreeComposer::class);
+
+        ViewLog::can(function (User $user) {
+            return in_array($user->email, [
+                'zhaiyuxin103@gmail.com',
+                'zhaiyuxin103@hotmail.com',
+            ]);
+        });
     }
 }

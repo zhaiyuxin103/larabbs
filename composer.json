@@ -26,6 +26,7 @@
         "mews/purifier": "^3.3",
         "overtrue/pinyin": "^5.0",
         "saade/blade-iconsax": "^1.0",
+        "saade/filament-laravel-log": "^1.1",
         "tightenco/ziggy": "^1.0",
         "viacreative/sudo-su": "^1.1"
     },
