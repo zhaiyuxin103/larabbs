@@ -4,10 +4,11 @@ namespace App\Notifications;
 
 use App\Models\Reply;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TopicReplied extends Notification
+class TopicReplied extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -43,10 +44,11 @@ class TopicReplied extends Notification
      */
     public function toMail(mixed $notifiable): MailMessage
     {
+        $uri = $this->reply->topic->link(['#reply-'.$this->reply->id]);
+
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('你的话题有新回复！')
+                    ->action('查看回复', $uri);
     }
 
     /**
