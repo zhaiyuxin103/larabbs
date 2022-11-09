@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Reply;
+use App\Notifications\TopicReplied;
 
 class ReplyObserver
 {
@@ -27,6 +28,9 @@ class ReplyObserver
         $reply->topic->last_reply_user_id = $reply->topic->replies()->where('show', true)->get()->last()->user_id ?? 0;
         $reply->topic->reply_count = $reply->topic->replies()->where('show', true)->count();
         $reply->topic->save();
+
+        // 通知话题作者有新的评论
+        $reply->topic->user->notify(new TopicReplied($reply));
     }
 
     /**

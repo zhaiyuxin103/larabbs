@@ -57,4 +57,9 @@ class Topic extends Model
     {
         return $this->hasMany(Reply::class);
     }
+
+    public function link($params = []): string
+    {
+        return route('topics.show', array_merge([$this->id, $this->slug], $params));
+    }
 }

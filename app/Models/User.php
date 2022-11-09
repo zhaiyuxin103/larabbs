@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -20,11 +21,28 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory;
     use HasProfilePhoto;
     use HasTeams;
-    use Notifiable;
     use TwoFactorAuthenticatable;
     use SoftDeletes;
     use Traits\LastActivedAtHelper;
     use HasRoles;
+    use Notifiable {
+        notify as protected laravelNotify;
+    }
+
+    public function notify($instance)
+    {
+        // 如果需要通知的人是当前用户，就不必通知了
+        if ($this->id === Auth::id()) {
+            return;
+        }
+
+        // 只有数据库类型通知才需要提醒，直接发送 Mail 或者其他的都 Pass
+        if (method_exists($instance, 'toDatabase')) {
+            $this->increment('notification_count');
+        }
+
+        $this->laravelNotify($instance);
+    }
 
     /**
      * The attributes that are mass assignable.
