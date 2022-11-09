@@ -62,4 +62,11 @@ class Topic extends Model
     {
         return route('topics.show', array_merge([$this->id, $this->slug], $params));
     }
+
+    public function updateReplyCount()
+    {
+        $this->last_reply_user_id = $this->replies()->where('show', true)->get()->last()->user_id ?? 0;
+        $this->reply_count = $this->replies()->where('show', true)->count();
+        $this->save();
+    }
 }

@@ -6,6 +6,7 @@ use App\Http\Requests\ReplyRequest;
 use App\Models\Reply;
 use App\Models\Topic;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -101,10 +102,15 @@ class RepliesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  Reply  $reply
-     * @return Response
+     * @return Redirector|RedirectResponse
+     *
+     * @throws AuthorizationException
      */
-    public function destroy(Reply $reply): Response
+    public function destroy(Reply $reply): Redirector|RedirectResponse
     {
-        //
+        $this->authorize('delete', $reply);
+        $reply->delete();
+
+        return Redirect::route('topics.show', [$reply->topic->id, $reply->topic->slug])->with('flash.banner', '评论删除成功！');
     }
 }

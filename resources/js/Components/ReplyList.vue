@@ -26,14 +26,14 @@
               <span class="hidden md:block">回复</span>
             </JetButton>
             <Link :href="route('replies.edit', reply.id)" class="block text-gray-500 ml-4"
-                  v-if="$page.props.user.id === reply.user_id">
+                  v-if="$page.props.user.id === reply.user_id || $page.props.user.id === topic.user_id">
               <JetSecondaryButton>
                 <PencilSquareIcon class="inline w-4 h-4 md:mr-2"></PencilSquareIcon>
                 <span class="hidden md:block">编辑</span>
               </JetSecondaryButton>
             </Link>
-            <JetDangerButton @click="confirmingTopicDeletion = true" class="ml-4"
-                             v-if="$page.props.user.id === reply.user_id">
+            <JetDangerButton @click="confirm('reply', reply.id)" class="ml-4"
+                             v-if="$page.props.user.id === reply.user_id || $page.props.user.id === topic.user_id">
               <TrashIcon class="inline w-4 h-4 md:mr-2"></TrashIcon>
               <span class="hidden md:block">删除</span>
             </JetDangerButton>
@@ -68,11 +68,16 @@ defineProps({
   topic: Object,
   replies: Object,
 });
+const emit = defineEmits(['confirmDeletion'])
 
 const replyIds = ref([]);
 
 const updateReplyIds = (reply_id) => {
   _.pull(replyIds.value, reply_id);
+}
+
+const confirm = (slug, id) => {
+  emit('confirmDeletion', slug, id);
 }
 </script>
 

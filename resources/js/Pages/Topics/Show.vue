@@ -34,7 +34,7 @@
                     编辑
                   </JetSecondaryButton>
                 </Link>
-                <JetDangerButton @click="confirmingTopicDeletion = true">
+                <JetDangerButton @click="confirmDeletion('topic', topic.id)">
                   <TrashIcon class="inline w-4 h-4 mr-2"></TrashIcon>
                   删除
                 </JetDangerButton>
@@ -44,7 +44,7 @@
           <div
             class="mt-4 sm:mt-6 lg:mt-8 transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:w-full sm:p-6 prose-base prose-slate">
             <ReplyBox :topic="topic"></ReplyBox>
-            <ReplyList :topic="topic" :replies="topic.replies"></ReplyList>
+            <ReplyList :topic="topic" :replies="topic.replies" @confirm-deletion="confirmDeletion"></ReplyList>
           </div>
         </div>
 
@@ -69,17 +69,17 @@
     </div>
 
     <!-- Delete Account Confirmation Modal -->
-    <JetDialogModal :show="confirmingTopicDeletion" @close="confirmingTopicDeletion = false">
+    <JetDialogModal :show="confirmingDeletion" @close="confirmingDeletion = false">
       <template #title>
-        删除话题
+        {{ confirming.title }}
       </template>
 
       <template #content>
-        您确定要删除吗？
+        {{ confirming.content }}
       </template>
 
       <template #footer>
-        <JetSecondaryButton @click="confirmingTopicDeletion = false">
+        <JetSecondaryButton @click="confirmingDeletion = false">
           Cancel
         </JetSecondaryButton>
 
@@ -87,9 +87,9 @@
           class="ml-3"
           :class="{ 'opacity-25': form.processing }"
           :disabled="form.processing"
-          @click="deleteTopic"
+          @click="confirming.handler"
         >
-          Delete Topic
+          {{ confirming.submit }}
         </JetDangerButton>
       </template>
     </JetDialogModal>
@@ -97,6 +97,7 @@
 </template>
 
 <script setup>
+import { ref, reactive, onMounted } from "vue";
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link, Head, useForm } from '@inertiajs/inertia-vue3';
 import { formatDistance } from 'date-fns'
@@ -104,7 +105,6 @@ import { zhCN } from 'date-fns/locale';
 import { ChatBubbleLeftRightIcon, PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetDangerButton from "@/Jetstream/DangerButton.vue";
-import { ref } from "vue";
 import JetDialogModal from '@/Jetstream/DialogModal.vue';
 import ReplyBox from "@/Components/ReplyBox.vue";
 import ReplyList from "@/Components/ReplyList.vue";
@@ -112,18 +112,50 @@ import ReplyList from "@/Components/ReplyList.vue";
 const props = defineProps({
   topic: Object,
 });
-
-const confirmingTopicDeletion = ref(false);
-
 const form = useForm({});
+let confirming = ref(null);
+const confirmingDeletion = ref(false);
+const reply_id = ref(null);
 
+onMounted(() => {
+  confirming.value = confirm.topic
+})
+
+const confirmDeletion = (slug, id) => {
+  if (slug === 'reply') {
+    reply_id.value = id;
+  }
+  confirming.value = confirm[slug]
+  confirmingDeletion.value = true;
+}
 const deleteTopic = () => {
   form.delete(route('topics.destroy', props.topic.id), {
     preserveScroll: true,
-    onSuccess: () => confirmingTopicDeletion.value = false,
+    onSuccess: () => confirmingDeletion.value = false,
     onFinish: () => form.reset(),
   });
 };
+const deleteReply = () => {
+  form.delete(route('replies.destroy', reply_id.value), {
+    preserveScroll: true,
+    onSuccess: () => confirmingDeletion.value = false,
+    onFinish: () => form.reset(),
+  });
+}
+const confirm = reactive({
+  topic: {
+    title: '删除话题',
+    content: '您确定要删除吗？',
+    handler: deleteTopic,
+    submit: 'Delete Topic',
+  },
+  reply: {
+    title: '删除回复',
+    content: '您确定要删除吗？',
+    handler: deleteReply,
+    submit: 'Delete Reply',
+  }
+});
 </script>
 
 <style scoped>
