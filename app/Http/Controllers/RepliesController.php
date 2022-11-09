@@ -8,11 +8,11 @@ use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class RepliesController extends Controller
 {
@@ -26,7 +26,7 @@ class RepliesController extends Controller
         //
     }
 
-    public function userIndex(User $user): \Inertia\Response
+    public function userIndex(User $user): Response
     {
         return Inertia::render('Users/Replies', [
             'replies' => Reply::where('user_id', $user->id)->with(['topic'])->paginate(),

@@ -205,6 +205,13 @@ const logout = () => {
                 </JetDropdown>
               </div>
 
+              <div class="mx-3 relative">
+                <Link class="inline-flex items-center rounded-full px-3 py-0.5 text-sm font-bold text-white"
+                      :class="[ $page.props.user.notification_count ? 'bg-[#d15b47]' : 'bg-[#EBE8E8]' ]"
+                      :href="route('notifications.index')">{{ $page.props.user.notification_count }}
+                </Link>
+              </div>
+
               <!-- Settings Dropdown -->
               <div class="ml-3 relative">
                 <JetDropdown align="right" width="48">

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -97,5 +98,22 @@ class User extends Authenticatable implements MustVerifyEmail
     public function replies(): HasMany
     {
         return $this->hasMany(Reply::class);
+    }
+
+    /**
+     * Get the entity's notifications.
+     *
+     * @return MorphMany
+     */
+    public function notifications(): MorphMany
+    {
+        return $this->morphMany(Notification::class, 'notifiable')->latest();
+    }
+
+    public function markAsRead()
+    {
+        $this->notification_count = 0;
+        $this->save();
+        $this->unreadNotifications->markAsRead();
     }
 }

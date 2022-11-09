@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\TopicsController;
 use Illuminate\Foundation\Application;
@@ -42,4 +43,5 @@ Route::middleware([
     Route::post('upload_image', [TopicsController::class, 'uploadImage'])->name('topics.upload_image');
     Route::get('users/{user}/replies', [RepliesController::class, 'userIndex'])->name('users.replies.index');
     Route::resource('replies', RepliesController::class);
+    Route::resource('notifications', NotificationsController::class);
 });
