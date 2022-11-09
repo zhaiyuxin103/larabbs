@@ -25,6 +25,7 @@
         "laravel/tinker": "^2.7",
         "mews/purifier": "^3.3",
         "overtrue/pinyin": "^5.0",
+        "ramnzys/filament-email-log": "^0.2.2",
         "saade/blade-iconsax": "^1.0",
         "saade/filament-laravel-log": "^1.1",
         "tightenco/ziggy": "^1.0",
