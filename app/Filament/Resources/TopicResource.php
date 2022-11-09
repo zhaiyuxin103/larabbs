@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Resources\TopicResource\Pages;
 use App\Models\Category;
 use App\Models\Topic;
@@ -105,6 +106,7 @@ class TopicResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
+                FilamentExportBulkAction::make('export')
             ]);
     }
 

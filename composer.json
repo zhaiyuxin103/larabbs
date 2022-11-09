@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "alperenersoy/filament-export": "^0.2.2",
         "althinect/filament-spatie-roles-permissions": "^1.0",
         "bezhansalleh/filament-language-switch": "^1.0",
         "blade-ui-kit/blade-icons": "^1.4",
