@@ -86,7 +86,7 @@ class UserResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
-                FilamentExportBulkAction::make('export')
+                FilamentExportBulkAction::make('export'),
             ]);
     }
 

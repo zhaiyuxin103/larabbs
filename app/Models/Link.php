@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
 
 class Link extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['title', 'description', 'link', 'show', 'order'];
 
     public string $cache_key = 'larabbs_links';

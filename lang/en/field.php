@@ -1,6 +1,14 @@
 <?php
 
 return [
-    'name' => '名称',
-    'permissions' => '权限',
+    'name' => 'Name',
+    'permissions' => 'Permissions',
+    'description' => 'Description',
+    'link' => 'Link',
+
+    'show' => 'Show',
+    'order' => 'Order',
+    'created_at' => 'Created At',
+    'updated_at' => 'Updated At',
+    'deleted_at' => 'Deleted At',
 ];
