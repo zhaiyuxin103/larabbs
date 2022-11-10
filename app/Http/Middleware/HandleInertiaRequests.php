@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -45,6 +46,7 @@ class HandleInertiaRequests extends Middleware
             'can' => [
                 'dashboard' => optional($request->user())->hasPermissionTo('dashboard'),
             ],
+            'active_users' => app(User::class)->getActiveUsers(),
         ]);
     }
 }

@@ -8,7 +8,7 @@
 
     <div class="pt-4 sm:pt-6 lg:pt-8 pb-10">
       <div class="md:flex justify-between items-start max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="w-full w-2/3 bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 md:mr-8">
+        <div class="w-full w-3/4 bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 md:mr-8">
           <ul role="list" class="divide-y divide-gray-200">
             <li v-for="(reply, index) in replies.data" :key="reply.id" class="py-4" :class="{ 'pt-0': index === 0, 'pb-0': index === (replies.data.length - 1) }">
               <div class="flex space-x-3">

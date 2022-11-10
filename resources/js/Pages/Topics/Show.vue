@@ -12,7 +12,7 @@
 
     <div class="pt-4 sm:pt-6 lg:pt-8 pb-12">
       <div class="md:flex justify-between items-start max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="w-full md:w-2/3 mr-8 md:px-0">
+        <div class="w-full md:w-3/4 mr-8 md:px-0">
           <div
             class="transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:w-full sm:p-6 prose-base prose-slate">
             <h1 class="text-center mt-4 mb-4">
@@ -49,7 +49,7 @@
         </div>
 
         <div
-          class="md:flex w-full md:w-1/3 items-end justify-center pt-4 text-center sm:items-center sm:p-0">
+          class="md:flex w-full md:w-1/4 items-end justify-center pt-4 text-center sm:items-center sm:p-0">
           <div
             class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:w-full sm:max-w-sm sm:p-6">
             <img class="block w-4/5 rounded-md mx-auto"

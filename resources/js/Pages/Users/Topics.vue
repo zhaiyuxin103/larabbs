@@ -8,7 +8,7 @@
 
     <div class="pt-4 sm:pt-6 lg:pt-8 pb-10">
       <div class="md:flex justify-between items-start max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="w-full md:w-2/3 bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 md:mr-8">
+        <div class="w-full md:w-3/4 bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 md:mr-8">
           <div>
             <Link class="mr-4" :href="_.head(_.split($page.url, '?')) + '?order=default'">
               <span v-if="$page.url.endsWith('recent')">最后回复</span>
