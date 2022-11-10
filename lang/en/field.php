@@ -5,6 +5,10 @@ return [
     'permissions' => 'Permissions',
     'description' => 'Description',
     'link' => 'Link',
+    'topic' => 'Topic',
+    'user' => 'User',
+    'parent_reply' => 'Parent Reply',
+    'content' => 'Content',
 
     'show' => 'Show',
     'order' => 'Order',

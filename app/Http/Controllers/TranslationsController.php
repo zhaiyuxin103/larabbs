@@ -75,15 +75,14 @@ class TranslationsController extends Controller
     {
         if (in_array($translation, ['en', 'zh_CN'])) {
             App::setLocale($translation);
-            $message = '修改成功～';
-        } else {
-            $message = '暂不支持该语言，敬请期待～';
-        }
 
-        return Redirect::back()->with([
-            'flash.bannerStyle' => 'danger',
-            'flash.banner' => $message,
-        ]);
+            return Redirect::back()->with('flash.banner', '修改成功～');
+        } else {
+            return Redirect::back()->with([
+                'flash.bannerStyle' => 'danger',
+                'flash.banner' => '暂不支持该语言，敬请期待～',
+            ]);
+        }
     }
 
     /**
