@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use App\Jobs\TranslateSlug;
 use App\Models\Topic;
-use Illuminate\Support\Facades\DB;
 
 // creating, created, updating, updated, saving,
 // saved,  deleting, deleted, restoring, restored
@@ -57,7 +56,7 @@ class TopicObserver
      */
     public function deleted(Topic $topic): void
     {
-        DB::table('replies')->where('topic_id', $topic->id)->update(['deleted_at' => date('Y-m-d H:i:s')]);
+        $topic->replies()->delete();
     }
 
     /**
@@ -68,7 +67,7 @@ class TopicObserver
      */
     public function restored(Topic $topic): void
     {
-        //
+        $topic->replies()->restore();
     }
 
     /**
@@ -79,6 +78,6 @@ class TopicObserver
      */
     public function forceDeleted(Topic $topic): void
     {
-        //
+        $topic->replies()->forceDelete();
     }
 }

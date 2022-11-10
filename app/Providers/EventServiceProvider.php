@@ -6,10 +6,12 @@ use App\Models\Category;
 use App\Models\Link;
 use App\Models\Reply;
 use App\Models\Topic;
+use App\Models\User;
 use App\Observers\CategoryObserver;
 use App\Observers\LinkObserver;
 use App\Observers\ReplyObserver;
 use App\Observers\TopicObserver;
+use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -47,6 +49,7 @@ class EventServiceProvider extends ServiceProvider
         Link::observe(LinkObserver::class);
         Reply::observe(ReplyObserver::class);
         Topic::observe(TopicObserver::class);
+        User::observe(UserObserver::class);
     }
 
     /**
