@@ -2,14 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Reply;
+use App\Models\Link;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RepliesSeeder extends Seeder
+class LinksTableSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Run the database seeds.
      *
@@ -17,6 +15,6 @@ class RepliesSeeder extends Seeder
      */
     public function run(): void
     {
-        Reply::factory()->times(1000)->create();
+        Link::factory()->times(25)->create();
     }
 }

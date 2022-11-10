@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Link;
 use App\Models\User;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
@@ -54,6 +55,7 @@ class HandleInertiaRequests extends Middleware
                 ['key' => 'ct', 'label' => 'zh', 'matice' => 'zh_TW', 'name' => '繁體中文'],
                 ['key' => 'ko', 'label' => 'ko', 'matice' => 'ko', 'name' => '한국어'],
             ],
+            'links' => app(Link::class)->getAllCached(),
         ]);
     }
 }
