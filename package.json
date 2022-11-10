@@ -46,6 +46,7 @@
         "@tinymce/tinymce-vue": "^5.0.0",
         "date-fns": "^2.29.1",
         "lint-staged": "^13.0.3",
+        "matice": "^1.1.4",
         "moment": "^2.29.4",
         "tinymce": "^6.2.0",
         "vue-tippy": "^6.0.0-alpha.63"

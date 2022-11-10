@@ -47,6 +47,13 @@ class HandleInertiaRequests extends Middleware
                 'dashboard' => optional($request->user())->hasPermissionTo('dashboard'),
             ],
             'active_users' => app(User::class)->getActiveUsers(),
+            'locales' => [
+                ['key' => 'en', 'label' => 'en', 'matice' => 'en', 'name' => 'English'],
+                ['key' => 'ja', 'label' => 'ja', 'matice' => 'ja', 'name' => '日本語'],
+                ['key' => 'cs', 'label' => 'zh', 'matice' => 'zh_CN', 'name' => '简体中文'],
+                ['key' => 'ct', 'label' => 'zh', 'matice' => 'zh_TW', 'name' => '繁體中文'],
+                ['key' => 'ko', 'label' => 'ko', 'matice' => 'ko', 'name' => '한국어'],
+            ],
         ]);
     }
 }

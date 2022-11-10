@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\TopicsController;
+use App\Http\Controllers\TranslationsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -45,3 +46,5 @@ Route::middleware([
     Route::resource('replies', RepliesController::class);
     Route::resource('notifications', NotificationsController::class);
 });
+
+Route::resource('translates', TranslationsController::class);

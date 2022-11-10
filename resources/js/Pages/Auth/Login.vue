@@ -1,4 +1,5 @@
 <script setup>
+import { trans } from "matice";
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
 import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
@@ -45,7 +46,7 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <JetLabel for="email" value="Email" />
+              <JetLabel for="email">{{ trans('Email') }}</JetLabel>
                 <JetInput
                     id="email"
                     v-model="form.email"

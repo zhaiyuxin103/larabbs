@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "ext-pdo": "*",
         "alperenersoy/filament-export": "^0.2.2",
         "althinect/filament-spatie-roles-permissions": "^1.0",
         "bezhansalleh/filament-language-switch": "^1.0",
@@ -16,6 +17,7 @@
         "codeat3/blade-phosphor-icons": "^1.4",
         "doctrine/dbal": "^3.3",
         "filament/filament": "^2.0",
+        "genl/matice": "^1.1",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.5.2",
         "intervention/image": "^2.7",
@@ -31,12 +33,14 @@
         "saade/blade-iconsax": "^1.0",
         "saade/filament-laravel-log": "^1.1",
         "tightenco/ziggy": "^1.0",
-        "viacreative/sudo-su": "^1.1",
-        "ext-pdo": "*"
+        "viacreative/sudo-su": "^1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
         "fakerphp/faker": "^1.9.1",
+        "laravel-lang/attributes": "^2.0",
+        "laravel-lang/lang": "^12.1",
+        "laravel-lang/publisher": "^14.4",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",

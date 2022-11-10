@@ -3,12 +3,16 @@ import { computed, ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import { usePage } from '@inertiajs/inertia-vue3'
 import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { getLocale, setLocale } from "matice";
+import { ChevronDownIcon, CheckIcon } from '@heroicons/vue/20/solid'
 import JetApplicationMark from '@/Jetstream/ApplicationMark.vue';
 import JetBanner from '@/Jetstream/Banner.vue';
 import JetDropdown from '@/Jetstream/Dropdown.vue';
 import JetDropdownLink from '@/Jetstream/DropdownLink.vue';
 import JetNavLink from '@/Jetstream/NavLink.vue';
 import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue';
+import _ from "lodash";
 
 defineProps({
   title: String,
@@ -37,6 +41,11 @@ const switchToTeam = (team) => {
 const logout = () => {
   Inertia.post(route('logout'));
 };
+
+const translate = (translate) => {
+  setLocale(translate);
+  Inertia.patch(route('translates.update', translate));
+}
 </script>
 
 <template>
@@ -71,22 +80,22 @@ const logout = () => {
                 </JetNavLink>
                 <JetDropdown align="left" width="60">
                   <template #trigger>
-                                        <span class="inline-flex rounded-md">
-                                            <button type="button"
-                                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
-                                                Categories
-                                                <svg
-                                                  class="ml-2 -mr-0.5 h-4 w-4"
-                                                  xmlns="http://www.w3.org/2000/svg"
-                                                  viewBox="0 0 20 20"
-                                                  fill="currentColor"
-                                                >
-                                                    <path fill-rule="evenodd"
-                                                          d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                                                          clip-rule="evenodd"/>
-                                                </svg>
-                                            </button>
-                                        </span>
+                    <span class="inline-flex rounded-md">
+                        <button type="button"
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                            Categories
+                            <svg
+                              class="ml-2 -mr-0.5 h-4 w-4"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                                <path fill-rule="evenodd"
+                                      d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </span>
                   </template>
 
                   <template #content>
@@ -205,11 +214,50 @@ const logout = () => {
                 </JetDropdown>
               </div>
 
-              <div class="mx-3 relative">
+              <div class="ml-3 relative">
                 <Link class="inline-flex items-center rounded-full px-3 py-0.5 text-sm font-bold text-white"
                       :class="[ $page.props.user.notification_count ? 'bg-[#d15b47]' : 'bg-[#EBE8E8]' ]"
                       :href="route('notifications.index')">{{ $page.props.user.notification_count }}
                 </Link>
+              </div>
+
+              <div class="ml-3 relative">
+                <Menu as="div" class="relative inline-block text-left">
+                  <div>
+                    <MenuButton
+                      class="flex w-full justify-center items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                      <font-awesome-icon icon="fa-solid fa-language"/>
+                      <ChevronDownIcon class="-mr-1 ml-2 h-5 w-5" aria-hidden="true"/>
+                    </MenuButton>
+                  </div>
+
+                  <transition enter-active-class="transition ease-out duration-100"
+                              enter-from-class="transform opacity-0 scale-95"
+                              enter-to-class="transform opacity-100 scale-100"
+                              leave-active-class="transition ease-in duration-75"
+                              leave-from-class="transform opacity-100 scale-100"
+                              leave-to-class="transform opacity-0 scale-95">
+                    <MenuItems
+                      class="absolute right-0 z-10 mt-2 w-48 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div class="py-1" v-for="locale in $page.props.locales">
+                        <MenuItem v-slot="{ active }">
+                          <a href="#"
+                             @click="translate(locale.matice)"
+                             class="flex justify-between"
+                             :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'group flex items-center px-4 py-2 text-sm']">
+                            <div>
+                            <span
+                              class="w-6 h-6 mr-2 -ml-1 flex-shrink-0 rtl:ml-2 rtl:-mr-1 hover:bg-white hover:text-primary-600 hover:border hover:border-primary-500/10 focus:text-white  bg-primary-500/10 font-semibold rounded-full p-1 text-xs text-indigo-500"
+                              :class="[active ? 'bg-white' : 'bg-indigo-200']">{{ _.toUpper(locale.key) }}</span>
+                              {{ locale.name }}
+                            </div>
+                            <CheckIcon class="w-4 h-4 text-indigo-400" v-if="getLocale() === locale.matice"></CheckIcon>
+                          </a>
+                        </MenuItem>
+                      </div>
+                    </MenuItems>
+                  </transition>
+                </Menu>
               </div>
 
               <!-- Settings Dropdown -->
