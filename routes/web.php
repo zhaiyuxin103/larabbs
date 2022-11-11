@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CaptchasController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RepliesController;
@@ -48,3 +49,4 @@ Route::middleware([
 });
 
 Route::resource('translates', TranslationsController::class);
+Route::resource('captchas', CaptchasController::class);

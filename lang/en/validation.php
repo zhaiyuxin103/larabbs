@@ -205,5 +205,8 @@ return [
         'year' => 'year',
         'verification_key' => 'verification key',
         'verification_code' => 'verification code',
+        'output' => 'output',
+        'captcha_key' => 'captcha key',
+        'captcha_code' => 'captcha code',
     ],
 ];

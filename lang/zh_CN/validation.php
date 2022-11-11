@@ -205,5 +205,8 @@ return [
         'year' => '年',
         'verification_key' => '短信验证码 key',
         'verification_code' => '短信验证码',
+        'output' => '输出类型',
+        'captcha_key' => '图片验证码 key',
+        'captcha_code' => '图片验证码',
     ],
 ];

@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Api;
 
-use Illuminate\Validation\Rule;
-
 class VerificationCodeRequest extends Request
 {
     /**
@@ -14,13 +12,8 @@ class VerificationCodeRequest extends Request
     public function rules(): array
     {
         return [
-            'phone' => [
-                'required',
-                'phone:CN,mobile',
-                Rule::unique('users')->where(function ($query) {
-                    $query->where('deleted_at', null);
-                }),
-            ],
+            'captcha_key' => ['required', 'string'],
+            'captcha_code' => ['required', 'string'],
         ];
     }
 }
