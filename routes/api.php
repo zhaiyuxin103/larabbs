@@ -20,7 +20,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('v1')->name('api.v1.')->group(function () {
-    Route::apiResource('verification-codes', VerificationCodesController::class);
-    Route::apiResource('users', UsersController::class);
-});
+Route::prefix('v1')
+    ->name('api.v1.')
+    ->group(function () {
+        Route::middleware('throttle:'.config('api.rate_limits.sign'))
+            ->group(function () {
+                // 短信验证码
+                Route::post('verification-codes', [VerificationCodesController::class, 'store'])->name('verification-code.store');
+                // 用户注册
+                Route::post('users', [UsersController::class, 'store'])->name('users.store');
+            });
+
+        Route::middleware('throttle:'.config('api.rate_limits.access'))
+            ->group(function () {
+            });
+    });
