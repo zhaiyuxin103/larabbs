@@ -203,5 +203,7 @@ return [
         'updated_at' => '更新于',
         'username' => '用户名',
         'year' => '年',
+        'verification_key' => '短信验证码 key',
+        'verification_code' => '短信验证码',
     ],
 ];

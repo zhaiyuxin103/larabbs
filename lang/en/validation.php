@@ -203,5 +203,7 @@ return [
         'updated_at' => 'updated at',
         'username' => 'username',
         'year' => 'year',
+        'verification_key' => 'verification key',
+        'verification_code' => 'verification code',
     ],
 ];

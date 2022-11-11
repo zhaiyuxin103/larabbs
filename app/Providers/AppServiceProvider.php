@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\View\Composers\CategoryTreeComposer;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Saade\FilamentLaravelLog\Pages\ViewLog;
@@ -39,5 +40,7 @@ class AppServiceProvider extends ServiceProvider
                 'zhaiyuxin103@hotmail.com',
             ]);
         });
+
+        JsonResource::withoutWrapping();
     }
 }

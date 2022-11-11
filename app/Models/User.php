@@ -30,6 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail
         notify as protected laravelNotify;
     }
     use Traits\ActiveUserHelper;
+    use Traits\HasDateTimeFormatter;
 
     public function notify($instance)
     {
@@ -52,7 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var string[]
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'phone', 'email', 'password',
     ];
 
     /**

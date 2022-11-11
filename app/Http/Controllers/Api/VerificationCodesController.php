@@ -29,8 +29,8 @@ class VerificationCodesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param VerificationCodeRequest $request
-     * @param EasySms $easySms
+     * @param  VerificationCodeRequest  $request
+     * @param  EasySms  $easySms
      * @return JsonResponse|JsonResource
      *
      * @throws InvalidArgumentException
@@ -57,10 +57,11 @@ class VerificationCodesController extends Controller
             }
         }
 
-        $key = 'verification_code_'.Str::random(15);
+        $key = Str::random(15);
+        $cacheKey = 'verification_code_'.$key;
         $expiredAt = now()->addMinutes(5);
         // 缓存验证码 5 分钟过期
-        Cache::put($key, ['phone' => $phone, 'code' => $code], $expiredAt);
+        Cache::put($cacheKey, ['phone' => $phone, 'code' => $code], $expiredAt);
 
         return Response::success([
             'key' => $key,
@@ -71,7 +72,7 @@ class VerificationCodesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return JsonResponse|JsonResource
      */
     public function show(int $id): JsonResponse|JsonResource
@@ -83,7 +84,7 @@ class VerificationCodesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  Request  $request
-     * @param int $id
+     * @param  int  $id
      * @return JsonResponse|JsonResource
      */
     public function update(Request $request, int $id): JsonResponse|JsonResource
@@ -94,7 +95,7 @@ class VerificationCodesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return JsonResponse|JsonResource
      */
     public function destroy(int $id): JsonResponse|JsonResource
