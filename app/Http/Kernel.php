@@ -100,5 +100,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         // 强制用户邮箱认证
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'enum' => \Jiannei\Enum\Laravel\Http\Middleware\TransformEnums::class,
     ];
 }

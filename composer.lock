@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2fbd23c4c5dbff1d47f09775cb40c33",
+    "content-hash": "0312d4951b56d14d4f019ceb8e0f5030",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -2865,6 +2865,95 @@
                 }
             ],
             "time": "2020-06-13T08:05:20+00:00"
+        },
+        {
+            "name": "jiannei/helpers",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jiannei/helpers.git",
+                "reference": "1fa669201e3c4f9b384ffdb5ab3ea4caabc594f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jiannei/helpers/zipball/1fa669201e3c4f9b384ffdb5ab3ea4caabc594f3",
+                "reference": "1fa669201e3c4f9b384ffdb5ab3ea4caabc594f3",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jiannei",
+                    "email": "longjian.huang@foxmail.com"
+                }
+            ],
+            "description": "Some helper functions.",
+            "support": {
+                "issues": "https://github.com/jiannei/helpers/issues",
+                "source": "https://github.com/jiannei/helpers/tree/v0.2.1"
+            },
+            "time": "2021-06-16T03:01:10+00:00"
+        },
+        {
+            "name": "jiannei/laravel-enum",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jiannei/laravel-enum.git",
+                "reference": "a3686fda3cf6c51942d13a50bdcd5f41622907b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jiannei/laravel-enum/zipball/a3686fda3cf6c51942d13a50bdcd5f41622907b2",
+                "reference": "a3686fda3cf6c51942d13a50bdcd5f41622907b2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "jiannei/helpers": "^0.2.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jiannei\\Enum\\Laravel\\Providers\\LaravelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jiannei\\Enum\\Laravel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jiannei",
+                    "email": "longjian.huang@foxmail.com"
+                }
+            ],
+            "description": "A simple and easy-to-use enumeration extension package to help you manage enumerations in your project more conveniently, supporting Laravel and Lumen",
+            "support": {
+                "issues": "https://github.com/jiannei/laravel-enum/issues",
+                "source": "https://github.com/jiannei/laravel-enum/tree/v3.0.0"
+            },
+            "time": "2021-09-19T14:27:22+00:00"
         },
         {
             "name": "jiannei/laravel-response",

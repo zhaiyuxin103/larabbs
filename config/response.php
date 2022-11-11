@@ -9,6 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
+use Jiannei\Enum\Laravel\Repositories\Enums\HttpStatusCodeEnum;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -32,7 +34,7 @@ return [
     // https://github.com/Jiannei/laravel-enum
     // https://github.com/BenSampo/laravel-enum
 
-    'enum' => '',
+    'enum' => HttpStatusCodeEnum::class,
 
     //  You can set some attributes (eg:code/message/header/options) for the exception, and it will override the default attributes of the exception
     'exception' => [
