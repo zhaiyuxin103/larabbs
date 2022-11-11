@@ -130,6 +130,7 @@ return [
     'uploaded' => ':Attribute 上传失败。',
     'url' => ':Attribute 格式不正确。',
     'uuid' => ':Attribute 必须是有效的 UUID。',
+    'phone' => ':Attribute 格式不正确。',
     'attributes' => [
         'address' => '地址',
         'age' => '年龄',

@@ -130,6 +130,7 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'phone' => 'The :attribute must be a valid phone.',
     'attributes' => [
         'address' => 'address',
         'age' => 'age',
