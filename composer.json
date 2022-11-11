@@ -32,6 +32,7 @@
         "laravel/tinker": "^2.7",
         "mews/purifier": "^3.3",
         "overtrue/easy-sms": "^2.2",
+        "overtrue/laravel-socialite": "^4.0",
         "overtrue/pinyin": "^5.0",
         "owenvoke/blade-fontawesome": "^2.1",
         "propaganistas/laravel-phone": "^4.4",
