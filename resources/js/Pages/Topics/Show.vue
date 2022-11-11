@@ -25,7 +25,7 @@
               {{ topic.reply_count }}
             </div>
             <div v-html="topic.body"></div>
-            <div v-if="$page.props.user.id === topic.user_id">
+            <div v-if="$page.props.user && $page.props.user.id === topic.user_id">
               <hr class="my-4">
               <div class="flex items-center">
                 <Link :href="route('topics.edit', topic.id)" class="text-gray-500 mr-4">

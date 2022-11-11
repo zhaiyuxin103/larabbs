@@ -135,14 +135,14 @@ const translate = (translate) => {
               <JetNavLink :href="route('topics.create')" :active="route().current('topics.create')">
                 <font-awesome-icon icon="fa-solid fa-plus" class="text-gray-500"/>
               </JetNavLink>
-              <div class="ml-3 relative">
+              <div class="ml-3 relative" v-if="$page.props.user">
                 <!-- Teams Dropdown -->
                 <JetDropdown v-if="$page.props.jetstream.hasTeamFeatures" align="right" width="60">
                   <template #trigger>
                     <span class="inline-flex rounded-md">
                       <button type="button"
                               class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
-                          {{ $page.props.user.current_team.name }}
+                          {{ $page.props.user?.current_team.name }}
 
                         <svg
                           class="ml-2 -mr-0.5 h-4 w-4"
@@ -168,7 +168,8 @@ const translate = (translate) => {
 
                         <!-- Team Settings -->
                         <JetDropdownLink
-                          :href="route('teams.show', $page.props.user.current_team)">
+                          :href="route('teams.show', $page.props.user?.current_team)"
+                          v-if="$page.props.user">
                           <font-awesome-icon icon="fa-solid fa-gears" class="mr-2"/>
                           Team Settings
                         </JetDropdownLink>
@@ -186,12 +187,12 @@ const translate = (translate) => {
                           Switch Teams
                         </div>
 
-                        <template v-for="team in $page.props.user.all_teams" :key="team.id">
+                        <template v-for="team in $page.props.user?.all_teams" :key="team.id">
                           <form @submit.prevent="switchToTeam(team)">
                             <JetDropdownLink as="button">
                               <div class="flex items-center">
                                 <svg
-                                  v-if="team.id == $page.props.user.current_team_id"
+                                  v-if="team.id == $page.props.user?.current_team_id"
                                   class="mr-2 h-5 w-5 text-green-400"
                                   fill="none"
                                   stroke-linecap="round"
@@ -213,19 +214,17 @@ const translate = (translate) => {
                   </template>
                 </JetDropdown>
               </div>
-
-              <div class="ml-3 relative">
+              <div class="ml-3 relative" v-if="$page.props.user">
                 <Link class="inline-flex items-center rounded-full px-3 py-0.5 text-sm font-bold text-white"
-                      :class="[ $page.props.user.notification_count ? 'bg-[#d15b47]' : 'bg-[#EBE8E8]' ]"
-                      :href="route('notifications.index')">{{ $page.props.user.notification_count }}
+                      :class="[ $page.props.user?.notification_count ? 'bg-[#d15b47]' : 'bg-[#EBE8E8]' ]"
+                      :href="route('notifications.index')">{{ $page.props.user?.notification_count ?? 0 }}
                 </Link>
               </div>
-
               <div class="ml-3 relative">
                 <Menu as="div" class="relative inline-block text-left">
                   <div>
                     <MenuButton
-                      class="flex w-full justify-center items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                      class="flex w-full justify-center items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm border-2 border-transparent rounded-full transition">
                       <font-awesome-icon icon="fa-solid fa-language"/>
                       <ChevronDownIcon class="-mr-1 ml-2 h-5 w-5" aria-hidden="true"/>
                     </MenuButton>
@@ -259,21 +258,29 @@ const translate = (translate) => {
                   </transition>
                 </Menu>
               </div>
+              <div v-if="!$page.props.user" class="hidden pr-6 py-4 sm:block">
+                <Link :href="route('login')" class="text-sm text-gray-700 underline">
+                  Log in
+                </Link>
 
+                <Link :href="route('register')" class="ml-4 text-sm text-gray-700 underline">
+                  Register
+                </Link>
+              </div>
               <!-- Settings Dropdown -->
-              <div class="ml-3 relative">
+              <div class="ml-3 relative" v-if="$page.props.user">
                 <JetDropdown align="right" width="48">
                   <template #trigger>
                     <button v-if="$page.props.jetstream.managesProfilePhotos"
                             class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                       <img class="h-8 w-8 rounded-full object-cover"
-                           :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
+                           :src="$page.props.user?.profile_photo_url" :alt="$page.props.user?.name">
                     </button>
 
                     <span v-else class="inline-flex rounded-md">
                       <button type="button"
                               class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
-                          {{ $page.props.user.name }}
+                          {{ $page.props.user?.name }}
 
                         <svg
                           class="ml-2 -mr-0.5 h-4 w-4"
@@ -307,11 +314,11 @@ const translate = (translate) => {
                     <div class="block px-4 py-2 text-xs text-gray-400">
                       Topics & Replies
                     </div>
-                    <JetDropdownLink :href="`/users/${$page.props.user.id}/topics`">
+                    <JetDropdownLink :href="`/users/${$page.props.user?.id}/topics`">
                       <font-awesome-icon icon="fa-solid fa-cubes-stacked" class="mr-2"/>
                       Topics
                     </JetDropdownLink>
-                    <JetDropdownLink :href="`/users/${$page.props.user.id}/replies`">
+                    <JetDropdownLink :href="`/users/${$page.props.user?.id}/replies`">
                       <font-awesome-icon icon="fa-regular fa-comment-dots" class="mr-2"/>
                       Replies
                     </JetDropdownLink>
@@ -371,7 +378,7 @@ const translate = (translate) => {
         <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
              class="sm:hidden">
           <div class="pt-2 pb-3 space-y-1">
-            <JetResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+            <JetResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')" v-if="$page.props.user">
               <font-awesome-icon icon="fa-solid fa-gauge-high" class="mr-2"/>
               Dashboard
             </JetResponsiveNavLink>
@@ -382,19 +389,19 @@ const translate = (translate) => {
           </div>
 
           <!-- Responsive Settings Options -->
-          <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="flex items-center justify-around  px-4">
+          <div class="pb-1 border-t border-gray-200" :class="{ 'pt-4': $page.props.user}">
+            <div class="flex items-center justify-around px-4" v-if="$page.props.user">
               <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                 <img class="h-10 w-10 rounded-full object-cover"
-                     :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
+                     :src="$page.props.user?.profile_photo_url" :alt="$page.props.user?.name">
               </div>
 
               <div>
                 <div class="font-medium text-base text-gray-800">
-                  {{ $page.props.user.name }}
+                  {{ $page.props.user?.name }}
                 </div>
                 <div class="font-medium text-sm text-gray-500">
-                  {{ $page.props.user.email }}
+                  {{ $page.props.user?.email }}
                 </div>
               </div>
               <JetResponsiveNavLink :href="route('topics.create')"
@@ -404,62 +411,72 @@ const translate = (translate) => {
             </div>
 
             <div class="mt-3 space-y-1">
-              <div class="border-t border-gray-200"/>
+              <div class="border-t border-gray-200" v-if="$page.props.user"/>
 
-              <div class="block px-4 py-2 text-xs text-gray-400">
+              <div class="block px-4 py-2 text-xs text-gray-400" v-if="$page.props.user">
                 Manage Account
               </div>
               <JetResponsiveNavLink :href="route('profile.show')"
-                                    :active="route().current('profile.show')">
+                                    :active="route().current('profile.show')"
+                                    v-if="$page.props.user">
                 <font-awesome-icon icon="fa-solid fa-user-pen" class="mr-2"/>
                 Profile
               </JetResponsiveNavLink>
 
-              <JetResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures"
+              <JetResponsiveNavLink v-if="$page.props.user && $page.props.jetstream.hasApiFeatures"
                                     :href="route('api-tokens.index')"
                                     :active="route().current('api-tokens.index')">
                 <font-awesome-icon icon="fa-solid fa-key" class="mr-2"/>
                 API Tokens
               </JetResponsiveNavLink>
 
-              <div class="border-t border-gray-200"/>
+              <div class="border-t border-gray-200" v-if="$page.props.user"/>
 
-              <div class="block px-4 py-2 text-xs text-gray-400">
+              <div class="block px-4 py-2 text-xs text-gray-400" v-if="$page.props.user">
                 Topics & Replies
               </div>
-              <JetResponsiveNavLink :href="`/users/${$page.props.user.id}/topics`"
-                                    :active="route().current('users.topics.index')">
+              <JetResponsiveNavLink :href="`/users/${$page.props.user?.id}/topics`"
+                                    :active="route().current('users.topics.index')"
+                                    v-if="$page.props.user">
                 <font-awesome-icon icon="fa-solid fa-cubes-stacked" class="mr-2"/>
                 Topics
               </JetResponsiveNavLink>
-              <JetResponsiveNavLink :href="`/users/${$page.props.user.id}/replies`"
-                                    :active="route().current('users.replies.index')">
+              <JetResponsiveNavLink :href="`/users/${$page.props.user?.id}/replies`"
+                                    :active="route().current('users.replies.index')"
+                                    v-if="$page.props.user">
                 <font-awesome-icon icon="fa-regular fa-comment-dots" class="mr-2"/>
                 Replies
               </JetResponsiveNavLink>
 
-              <div class="border-t border-gray-200"/>
+              <div class="border-t border-gray-200" v-if="$page.props.user"/>
 
-              <div class="block px-4 py-2 text-xs text-gray-400">
+              <div class="block px-4 py-2 text-xs text-gray-400" v-if="$page.props.user">
                 Admin
               </div>
-              <JetResponsiveNavLink href="/admin">
+              <JetResponsiveNavLink href="/admin" v-if="$page.props.user">
                 <font-awesome-icon icon="fa-solid fa-gauge-high" class="mr-2"/>
                 Dashboard
               </JetResponsiveNavLink>
 
-              <div class="border-t border-gray-200"/>
+              <div class="border-t border-gray-200" v-if="$page.props.user"/>
 
               <!-- Authentication -->
-              <form method="POST" @submit.prevent="logout">
+              <form method="POST" @submit.prevent="logout" v-if="$page.props.user">
                 <JetResponsiveNavLink as="button">
                   <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="mr-2"/>
                   Log Out
                 </JetResponsiveNavLink>
               </form>
 
+              <JetResponsiveNavLink :href="route('login')">
+                Login
+              </JetResponsiveNavLink>
+              <JetResponsiveNavLink :href="route('register')">
+                Register
+              </JetResponsiveNavLink>
+
               <!-- Team Management -->
-              <template v-if="$page.props.jetstream.hasTeamFeatures">
+              <template v-if="$page.props.user && $page.props.jetstream.hasTeamFeatures">
                 <div class="border-t border-gray-200"/>
 
                 <div class="block px-4 py-2 text-xs text-gray-400">
@@ -467,8 +484,9 @@ const translate = (translate) => {
                 </div>
 
                 <!-- Team Settings -->
-                <JetResponsiveNavLink :href="route('teams.show', $page.props.user.current_team)"
-                                      :active="route().current('teams.show')">
+                <JetResponsiveNavLink :href="route('teams.show', $page.props.user?.current_team)"
+                                      :active="route().current('teams.show')"
+                                      v-if="$page.props.user">
                   <font-awesome-icon icon="fa-solid fa-gears" class="mr-2"/>
                   Team Settings
                 </JetResponsiveNavLink>
@@ -487,12 +505,12 @@ const translate = (translate) => {
                   Switch Teams
                 </div>
 
-                <template v-for="team in $page.props.user.all_teams" :key="team.id">
+                <template v-for="team in $page.props.user?.all_teams" :key="team.id">
                   <form @submit.prevent="switchToTeam(team)">
                     <JetResponsiveNavLink as="button">
                       <div class="flex items-center">
                         <svg
-                          v-if="team.id == $page.props.user.current_team_id"
+                          v-if="team.id == $page.props.user?.current_team_id"
                           class="mr-2 h-5 w-5 text-green-400"
                           fill="none"
                           stroke-linecap="round"

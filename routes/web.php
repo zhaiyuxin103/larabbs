@@ -30,6 +30,13 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/', [TopicsController::class, 'index'])->name('root');
+Route::get('topics', [TopicsController::class, 'index'])->name('topics.index');
+Route::get('topics/{topic}/{slug?}', [TopicsController::class, 'show'])->name('topics.show');
+Route::get('categories/{category}', [CategoriesController::class, 'show'])->name('categories.show');
+Route::resource('translates', TranslationsController::class);
+Route::resource('captchas', CaptchasController::class);
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -38,15 +45,10 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    Route::resource('topics', TopicsController::class)->only(['index', 'create', 'store', 'update', 'edit', 'destroy']);
-    Route::get('topics/{topic}/{slug?}', [TopicsController::class, 'show'])->name('topics.show');
+    Route::resource('topics', TopicsController::class)->only(['create', 'store', 'update', 'edit', 'destroy']);
     Route::get('users/{user}/topics', [TopicsController::class, 'userIndex'])->name('users.topics.index');
-    Route::resource('categories', CategoriesController::class);
     Route::post('upload_image', [TopicsController::class, 'uploadImage'])->name('topics.upload_image');
     Route::get('users/{user}/replies', [RepliesController::class, 'userIndex'])->name('users.replies.index');
     Route::resource('replies', RepliesController::class);
     Route::resource('notifications', NotificationsController::class);
 });
-
-Route::resource('translates', TranslationsController::class);
-Route::resource('captchas', CaptchasController::class);
