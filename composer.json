@@ -27,6 +27,7 @@
         "laravel/framework": "^9.19",
         "laravel/horizon": "^5.10",
         "laravel/jetstream": "^2.10",
+        "laravel/passport": "^11.3",
         "laravel/sanctum": "^2.14.1",
         "laravel/telescope": "^4.9",
         "laravel/tinker": "^2.7",
