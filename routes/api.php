@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\AuthorizationsController;
 use App\Http\Controllers\Api\CaptchasController;
 use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\VerificationCodesController;
-use App\Http\Controllers\AuthorizationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +27,8 @@ Route::prefix('v1')
     ->group(function () {
         Route::middleware('throttle:'.config('api.rate_limits.sign'))
             ->group(function () {
+                // 游客可以访问的接口
+
                 // 图片验证码
                 Route::apiResource('captchas', CaptchasController::class);
                 // 短信验证码
@@ -37,6 +39,16 @@ Route::prefix('v1')
                 Route::post('socials/{social_type}/authorizations', [AuthorizationsController::class, 'socialStore'])
                     ->where('social_type', 'wechat')
                     ->name('socials.authorizations.store');
+                // 登录
+                Route::post('authorizations', [AuthorizationsController::class, 'store'])->name('authorizations.store');
+                // 刷新 token
+                Route::put('authorizations/current', [AuthorizationsController::class, 'update'])->name('authorizations.update');
+
+                // 登录后可以访问的接口
+                Route::middleware(['auth:api'])->group(function () {
+                    // 删除 token
+                    Route::delete('authorizations/current', [AuthorizationsController::class, 'destroy'])->name('authorizations.destroy');
+                });
             });
 
         Route::middleware('throttle:'.config('api.rate_limits.access'))

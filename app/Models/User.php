@@ -118,4 +118,17 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->save();
         $this->unreadNotifications->markAsRead();
     }
+
+    /**
+     * 查找给定用户名的用户实例。
+     *
+     * @param  string  $username
+     * @return User
+     */
+    public function findForPassport(string $username): User
+    {
+        filter_var($username, FILTER_VALIDATE_EMAIL) ? $credentials['email'] = $username : $credentials['phone'] = $username;
+
+        return self::where($credentials)->first();
+    }
 }
