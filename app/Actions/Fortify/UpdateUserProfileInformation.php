@@ -24,8 +24,13 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'phone:CN,mobile'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'avatar' => ['nullable', 'mimes:jpg,jpeg,png,gif', 'dimensions:min_width=208,min_height=208', 'max:1024'],
+            'gender' => ['integer'],
+            'birthday' => ['nullable', 'date'],
+            'introduction' => ['nullable', 'max:255'],
         ], [
             'name.required' => '用户名不能为空。',
             'avatar.mimes' => '头像必须是 png, jpg, gif, jpeg 格式的图片',
@@ -47,7 +52,12 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         } else {
             $user->forceFill([
                 'name' => $input['name'],
+                'username' => $input['username'],
+                'phone' => $input['phone'],
                 'email' => $input['email'],
+                'gender' => $input['gender'],
+                'birthday' => $input['birthday'],
+                'introduction' => $input['introduction'],
             ])->save();
         }
     }

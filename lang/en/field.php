@@ -9,6 +9,13 @@ return [
     'user' => 'User',
     'parent_reply' => 'Parent Reply',
     'content' => 'Content',
+    'avatar' => 'Avatar',
+    'username' => 'Username',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'gender' => 'Gender',
+    'birthday' => 'Birthday',
+    'introduction' => 'Introduction',
 
     'show' => 'Show',
     'order' => 'Order',

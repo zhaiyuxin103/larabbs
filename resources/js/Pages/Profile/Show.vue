@@ -7,6 +7,7 @@ import TwoFactorAuthenticationForm from '@/Pages/Profile/Partials/TwoFactorAuthe
 import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue';
 import { formatDistance } from 'date-fns'
+import { zhCN } from 'date-fns/locale';
 
 defineProps({
   confirmsTwoFactorAuthentication: Boolean,

@@ -9,6 +9,13 @@ return [
     'user' => '所属用户',
     'parent_reply' => '父级评论',
     'content' => '内容',
+    'avatar' => '头像',
+    'username' => '用户名',
+    'phone' => '手机号',
+    'email' => '邮箱',
+    'gender' => '性别',
+    'birthday' => '生日',
+    'introduction' => '个人简介',
 
     'show' => '是否显示',
     'order' => '排序',

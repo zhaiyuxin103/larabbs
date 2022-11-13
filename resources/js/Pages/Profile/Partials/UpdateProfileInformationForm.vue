@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import { trans } from "matice";
 import { Inertia } from '@inertiajs/inertia';
 import { Link, useForm } from '@inertiajs/inertia-vue3';
 import JetButton from '@/Jetstream/Button.vue';
@@ -17,9 +18,13 @@ const props = defineProps({
 const form = useForm({
   _method: 'PUT',
   name: props.user.name,
+  username: props.user.username,
+  phone: props.user.phone,
   email: props.user.email,
   avatar: null,
   gender: props.user.gender,
+  birthday: props.user.birthday,
+  introduction: props.user.introduction,
 });
 
 const verificationLinkSent = ref(null);
@@ -98,7 +103,7 @@ const clearImageInput = () => {
           @change="updateImagePreview"
         >
 
-        <JetLabel for="avatar" value="Phote"/>
+        <JetLabel for="avatar">{{ trans('field.avatar') }}</JetLabel>
 
         <!-- Current Profile Photo -->
         <div v-show="! imagePreview" class="mt-2">
@@ -131,7 +136,7 @@ const clearImageInput = () => {
 
       <!-- Name -->
       <div class="col-span-6 sm:col-span-4">
-        <JetLabel for="name" value="Name"/>
+        <JetLabel for="name">{{ trans('field.name') }}</JetLabel>
         <JetInput
           id="name"
           v-model="form.name"
@@ -142,9 +147,33 @@ const clearImageInput = () => {
         <JetInputError :message="form.errors.name" class="mt-2"/>
       </div>
 
+      <!-- Username -->
+      <div class="col-span-6 sm:col-span-4">
+        <JetLabel for="username">{{ trans('field.username') }}</JetLabel>
+        <JetInput
+          id="username"
+          v-model="form.username"
+          type="text"
+          class="mt-1 block w-full"
+        />
+        <JetInputError :message="form.errors.username" class="mt-2"/>
+      </div>
+
+      <!-- Phone -->
+      <div class="col-span-6 sm:col-span-4">
+        <JetLabel for="phone">{{ trans('field.phone') }}</JetLabel>
+        <JetInput
+          id="phone"
+          v-model="form.phone"
+          type="text"
+          class="mt-1 block w-full"
+        />
+        <JetInputError :message="form.errors.phone" class="mt-2"/>
+      </div>
+
       <!-- Email -->
       <div class="col-span-6 sm:col-span-4">
-        <JetLabel for="email" value="Email"/>
+        <JetLabel for="email">{{ trans('field.email') }}</JetLabel>
         <JetInput
           id="email"
           v-model="form.email"
@@ -172,6 +201,52 @@ const clearImageInput = () => {
             A new verification link has been sent to your email address.
           </div>
         </div>
+      </div>
+
+      <!-- Gender -->
+      <div class="col-span-6 sm:col-span-4">
+        <JetLabel for="gender">{{ trans('field.gender') }}</JetLabel>
+        <div class="flex mt-4 space-x-4">
+          <div class="flex items-center">
+            <input v-model="form.gender" value="1" type="radio" class="h-4 w-4 rounded-full border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+            <label class="ml-1 block text-sm text-gray-700">男</label>
+          </div>
+          <div class="flex items-center">
+            <input v-model="form.gender" value="2" type="radio" class="h-4 w-4 rounded-full border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+            <label class="ml-1 block text-sm text-gray-700">女</label>
+          </div>
+          <div class="flex items-center">
+            <input v-model="form.gender" value="0" type="radio" class="h-4 w-4 rounded-full border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+            <label class="ml-1 block text-sm text-gray-700">保密</label>
+          </div>
+        </div>
+        <JetInputError :message="form.errors.gender" class="mt-2"/>
+      </div>
+
+      <!-- Birthday -->
+      <div class="col-span-6 sm:col-span-4">
+        <JetLabel for="birthday">{{ trans('field.birthday') }}</JetLabel>
+        <JetInput
+          id="birthday"
+          v-model="form.birthday"
+          type="date"
+          class="mt-1 block w-full"
+          autocomplete="birthday"
+        />
+        <JetInputError :message="form.errors.birthday" class="mt-2"/>
+      </div>
+
+      <!-- Introduction -->
+      <div class="col-span-6 sm:col-span-4">
+        <JetLabel for="introduction">{{ trans('field.introduction') }}</JetLabel>
+        <textarea
+          id="introduction"
+          rows="5"
+          v-model="form.introduction"
+          type="text"
+          class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+        ></textarea>
+        <JetInputError :message="form.errors.introduction" class="mt-2"/>
       </div>
     </template>
 
