@@ -274,7 +274,7 @@ const translate = (translate) => {
                     <button v-if="$page.props.jetstream.managesProfilePhotos"
                             class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                       <img class="h-8 w-8 rounded-full object-cover"
-                           :src="$page.props.user?.profile_photo_url" :alt="$page.props.user?.name">
+                           :src="$page.props.user?.avatar_link" :alt="$page.props.user?.name">
                     </button>
 
                     <span v-else class="inline-flex rounded-md">
@@ -393,7 +393,7 @@ const translate = (translate) => {
             <div class="flex items-center justify-around px-4" v-if="$page.props.user">
               <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                 <img class="h-10 w-10 rounded-full object-cover"
-                     :src="$page.props.user?.profile_photo_url" :alt="$page.props.user?.name">
+                     :src="$page.props.user?.avatar_link" :alt="$page.props.user?.name">
               </div>
 
               <div>

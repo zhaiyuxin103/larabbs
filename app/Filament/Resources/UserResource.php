@@ -47,8 +47,7 @@ class UserResource extends Resource
                     ->maxLength(65535),
                 Forms\Components\DateTimePicker::make('two_factor_confirmed_at'),
                 Forms\Components\TextInput::make('current_team_id'),
-                Forms\Components\TextInput::make('profile_photo_path')
-                    ->maxLength(2048),
+                Forms\Components\FileUpload::make('avatar')->image(),
                 Forms\Components\Select::make('roles')->multiple()->relationship('roles', 'name'),
             ]);
     }
@@ -67,7 +66,7 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('two_factor_confirmed_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('current_team_id'),
-                Tables\Columns\TextColumn::make('profile_photo_path'),
+                Tables\Columns\ImageColumn::make('avatar')->rounded(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')

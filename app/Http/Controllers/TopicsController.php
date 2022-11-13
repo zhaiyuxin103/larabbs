@@ -15,6 +15,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -60,10 +61,10 @@ class TopicsController extends Controller
         // 判断是否有上传文件，并赋值给 $file
         if ($file = $request->file('upload_file')) {
             // 保存图片到本地
-            $result = $uploader->save($file, 'topics', Auth::id(), 1024);
+            $result = $uploader->save($file, 'topics', 1024);
             // 图片保存成功的话
             if ($result) {
-                $data['location'] = config('app.url').$result['path'];
+                $data['location'] = Storage::url($result['path']);
             }
         }
 
@@ -73,7 +74,7 @@ class TopicsController extends Controller
     public function store(TopicRequest $request, Topic $topic, ImageUploadHandler $uploader): Redirector|RedirectResponse
     {
         $topic->fill(array_merge($request->all(), [
-            'image' => Arr::get($uploader->save($request->file('image'), 'topics', Auth::id(), 1024), 'path'),
+            'image' => Arr::get($uploader->save($request->file('image'), 'topics', 1024), 'path'),
         ]));
         $topic->user_id = Auth::id();
         $topic->save();

@@ -21,7 +21,7 @@ const form = useForm(_.merge({
   _method: 'PUT',
   parent_id: props.topic.category.parent.id,
 }, props.topic));
-const imagePreview = ref(props.topic.image);
+const imagePreview = ref(props.topic.image_link);
 const imageInput = ref(null);
 
 const updateImagePreview = () => {
@@ -71,7 +71,7 @@ const submit = () => {
 </script>
 
 <template>
-  <AppLayout title="新建话题">
+  <AppLayout title="编辑话题">
     <template #header>
       <h2 class="flex items-center font-semibold text-xl text-gray-800 leading-tight">
         <PencilSquareIcon class="w-8 h-8 mr-2"></PencilSquareIcon>

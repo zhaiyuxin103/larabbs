@@ -2,15 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Topic extends Model
 {
     use SoftDeletes;
 
     protected $fillable = ['title', 'subtitle', 'image', 'body', 'user_id', 'category_id', 'is_released', 'need_released', 'released_at', 'vote_count', 'collect_count', 'reply_count', 'view_count', 'last_reply_user_id', 'order', 'excerpt', 'slug'];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'image_link',
+    ];
 
     public function category(): BelongsTo
     {
@@ -68,5 +79,12 @@ class Topic extends Model
         $this->last_reply_user_id = $this->replies()->where('show', true)->get()->last()->user_id ?? 0;
         $this->reply_count = $this->replies()->where('show', true)->count();
         $this->save();
+    }
+
+    public function imageLink(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->image ? Storage::url($this->image) : null,
+        );
     }
 }

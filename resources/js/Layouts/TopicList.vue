@@ -3,7 +3,7 @@
         <li v-for="topic in topics" class="flex items-center p-2 border-b border-slate-200 hover:bg-gray-500/5">
             <div class="border border-gray-200 rounded-md mr-4">
                 <Link>
-                    <img :src="topic.user.profile_photo_url" :alt="topic.user.name" class="w-[50px] p-1">
+                    <img :src="topic.user.avatar_link" :alt="topic.user.name" class="w-[50px] p-1">
                 </Link>
             </div>
             <div class="grow">

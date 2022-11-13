@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -53,7 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var string[]
      */
     protected $fillable = [
-        'name', 'phone', 'email', 'password', 'weixin_openid', 'weixin_unionid',
+        'name', 'username', 'phone', 'email', 'gender', 'birthday', 'avatar', 'password', 'introduction', 'weixin_openid', 'weixin_unionid',
     ];
 
     /**
@@ -87,6 +89,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $appends = [
         'profile_photo_url',
+        'avatar_link',
     ];
 
     public function topics(): HasMany
@@ -132,5 +135,22 @@ class User extends Authenticatable implements MustVerifyEmail
         filter_var($username, FILTER_VALIDATE_EMAIL) ? $credentials['email'] = $username : $credentials['phone'] = $username;
 
         return self::where($credentials)->first();
+    }
+
+    public function avatarLink(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->avatar) {
+                    return Storage::url($this->avatar);
+                } else {
+                    $name = trim(collect(explode(' ', $this->name))->map(function ($segment) {
+                        return mb_substr($segment, 0, 1);
+                    })->join(' '));
+
+                    return 'https://ui-avatars.com/api/?name='.urlencode($name).'&color=7F9CF5&background=EBF4FF';
+                }
+            }
+        );
     }
 }

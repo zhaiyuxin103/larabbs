@@ -3,8 +3,8 @@
     <template v-for="(reply, index) in replies">
       <div class="flex items-start" :class="{'mb-6': index < replies.length }" :name="`reply-${reply.id}`"
            :id="`reply-${reply.id}`">
-        <img class="block w-12 mr-4 my-0 flex-none overflow-hidden rounded-full"
-             :src="reply.user.profile_photo_url" alt="">
+        <img class="block w-12 h-12 mr-4 my-0 flex-none overflow-hidden rounded-full"
+             :src="reply.user.avatar_link" alt="">
         <div class="flex-auto">
           <div class="flex items-center">
             <div class="font-semibold">

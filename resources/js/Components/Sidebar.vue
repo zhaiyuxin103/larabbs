@@ -21,7 +21,7 @@
           <li v-for="(active_user, index) in $page.props.active_users" :key="active_user.id" class="py-2"
               :class="{ 'pb-0': index === ($page.props.active_users.length - 1) }">
             <div class="flex items-center space-x-3">
-              <img class="h-8 w-8 rounded-md" :src="active_user.profile_photo_url" alt=""/>
+              <img class="h-8 w-8 rounded-md" :src="active_user.avatar_link" alt=""/>
               <div class="flex-1 space-y-1">
                 <div class="flex items-center justify-between">
                   {{ active_user.name }}
