@@ -32,7 +32,7 @@ Route::prefix('v1')
                 // 图片验证码
                 Route::apiResource('captchas', CaptchasController::class);
                 // 短信验证码
-                Route::post('verification-codes', [VerificationCodesController::class, 'store'])->name('verification-code.store');
+                Route::apiResource('verification-codes', VerificationCodesController::class);
                 // 用户注册
                 Route::post('users', [UsersController::class, 'store'])->name('users.store');
                 // 第三方登录

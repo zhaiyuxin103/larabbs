@@ -50,12 +50,12 @@ class AuthorizationsController extends AccessTokenController
     {
         try {
             $validator = Validator::make($request->getParsedBody(), [
-                'grant_type' => ['required', 'string', 'in:password'],
+                'grant_type' => ['required', 'string', 'in:password,wechat-social'],
                 'client_id' => ['required', 'string', 'exists:oauth_clients,id'],
                 'client_secret' => ['required', 'string', 'exists:oauth_clients,secret'],
-                'username' => ['required', 'string'],
-                'password' => ['required', 'alpha_dash', 'min:6'],
-                'scope' => ['required', 'in:*'],
+                'username' => ['required_without:code', 'string'],
+                'password' => ['required_without:code', 'alpha_dash', 'min:6'],
+                'code' => ['required_without:username,password', 'string'],
             ]);
 
             if ($validator->fails()) {
@@ -158,7 +158,6 @@ class AuthorizationsController extends AccessTokenController
                 'client_id' => ['required', 'string', 'exists:oauth_clients,id'],
                 'client_secret' => ['required', 'string', 'exists:oauth_clients,secret'],
                 'refresh_token' => ['required'],
-                'scope' => ['required', 'in:*'],
             ]);
 
             if ($validator->fails()) {

@@ -24,6 +24,7 @@
         "intervention/image": "^2.7",
         "jiannei/laravel-enum": "^3.0",
         "jiannei/laravel-response": "^4.4",
+        "kslimani/laravel-passport-grant": "^1.1",
         "laravel/framework": "^9.19",
         "laravel/horizon": "^5.10",
         "laravel/jetstream": "^2.10",

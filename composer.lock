@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a51e6cac927ba6bc9ee96ac3f7f63dc",
+    "content-hash": "2f4afd232bf88ee6485c42cb9e17d12f",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -3320,6 +3320,57 @@
                 "source": "https://github.com/jiannei/laravel-response/tree/v4.4.0"
             },
             "time": "2022-05-31T15:03:27+00:00"
+        },
+        {
+            "name": "kslimani/laravel-passport-grant",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kslimani/laravel-passport-grant.git",
+                "reference": "6c39434f3e229434ce6de0ac856a62524a4b3cf6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kslimani/laravel-passport-grant/zipball/6c39434f3e229434ce6de0ac856a62524a4b3cf6",
+                "reference": "6c39434f3e229434ce6de0ac856a62524a4b3cf6",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/passport": ">=4.0",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0",
+                "phpunit/phpunit": "^8.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Sk\\Passport\\GrantTypesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sk\\Passport\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Laravel Passport custom grant types provider",
+            "keywords": [
+                "grant",
+                "laravel",
+                "passport"
+            ],
+            "support": {
+                "issues": "https://github.com/kslimani/laravel-passport-grant/issues",
+                "source": "https://github.com/kslimani/laravel-passport-grant/tree/1.1.0"
+            },
+            "time": "2019-10-02T12:21:08+00:00"
         },
         {
             "name": "laravel/fortify",
