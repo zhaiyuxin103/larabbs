@@ -64,6 +64,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        'weixin_openid',
+        'weixin_unionid',
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];

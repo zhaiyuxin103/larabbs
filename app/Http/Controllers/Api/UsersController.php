@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
 use Jiannei\Response\Laravel\Support\Facades\Response;
 
@@ -52,18 +53,28 @@ class UsersController extends Controller
         // 清除验证码缓存
         Cache::forget($cacheKey);
 
-        return Response::success(new UserResource($user));
+        return Response::success((new UserResource($user))->showSensitiveFields());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  User  $user
+     * @param  Request  $request
      * @return JsonResponse
      */
-    public function show(int $id): JsonResponse
+    public function show(User $user, Request $request): JsonResponse
     {
-        //
+        return Response::success(new UserResource($user));
+    }
+
+    /**
+     * @param  Request  $request
+     * @return JsonResponse|JsonResource
+     */
+    public function me(Request $request): JsonResponse|JsonResource
+    {
+        return Response::success((new UserResource($request->user()))->showSensitiveFields());
     }
 
     /**
