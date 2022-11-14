@@ -27,6 +27,15 @@ class UsersController extends Controller
     }
 
     /**
+     * @param  User  $user
+     * @return JsonResponse|JsonResource
+     */
+    public function activedIndex(User $user): JsonResponse|JsonResource
+    {
+        return Response::success(UserResource::collection($user->getActiveUsers()));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  UserRequest  $request
