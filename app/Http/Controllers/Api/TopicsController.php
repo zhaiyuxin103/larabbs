@@ -7,8 +7,8 @@ use App\Http\Requests\Api\TopicRequest;
 use App\Http\Resources\TopicResource;
 use App\Models\Image;
 use App\Models\Topic;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Jiannei\Response\Laravel\Support\Facades\Response;
 
 class TopicsController extends Controller
@@ -59,13 +59,24 @@ class TopicsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param  TopicRequest  $request
+     * @param  Topic  $topic
      * @return JsonResponse
+     *
+     * @throws AuthorizationException
      */
-    public function update(Request $request, int $id): JsonResponse
+    public function update(TopicRequest $request, Topic $topic): JsonResponse
     {
-        //
+        $this->authorize('update', $topic);
+        $attributes = $request->all(['title', 'subtitle', 'body', 'category_id', 'is_released', 'need_released', 'released_at', 'order']);
+        $request->whenFilled('topic_image_id', function ($input) use (&$attributes) {
+            $image = Image::find($input);
+
+            $attributes['image'] = $image->path;
+        });
+        $topic->update($attributes);
+
+        return Response::success(new TopicResource($topic));
     }
 
     /**

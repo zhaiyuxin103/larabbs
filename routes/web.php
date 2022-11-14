@@ -33,7 +33,6 @@ Route::get('/', function () {
 
 Route::get('/', [TopicsController::class, 'index'])->name('root');
 Route::get('topics', [TopicsController::class, 'index'])->name('topics.index');
-Route::get('topics/{topic}/{slug?}', [TopicsController::class, 'show'])->name('topics.show')->where('topic', '[0-9]+')->where('slug', '/^((?!edit).)*$/is');
 Route::get('categories/{category}', [CategoriesController::class, 'show'])->name('categories.show');
 Route::resource('translates', TranslationsController::class);
 Route::resource('captchas', CaptchasController::class);
@@ -54,3 +53,5 @@ Route::middleware([
     Route::resource('replies', RepliesController::class);
     Route::resource('notifications', NotificationsController::class);
 });
+
+Route::get('topics/{topic}/{slug?}', [TopicsController::class, 'show'])->name('topics.show')->where('topic', '[0-9]+');

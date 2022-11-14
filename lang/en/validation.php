@@ -208,5 +208,11 @@ return [
         'output' => 'output',
         'captcha_key' => 'captcha key',
         'captcha_code' => 'captcha code',
+        'subtitle' => 'subtitle',
+        'topic_image_id' => 'topic image',
+        'category_id' => 'category',
+        'is_released' => 'is released',
+        'need_released' => 'need released',
+        'released_at' => 'released at',
     ],
 ];
