@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "23f925b8311d80d80c76a618eb6111d0",
+    "content-hash": "ef09de174d1568366270342587a09b7f",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -3320,6 +3320,53 @@
                 "source": "https://github.com/jiannei/laravel-response/tree/v4.4.0"
             },
             "time": "2022-05-31T15:03:27+00:00"
+        },
+        {
+            "name": "jpush/jpush",
+            "version": "v3.6.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jpush/jpush-api-php-client.git",
+                "reference": "ebb191e8854a35c3fb7a6626028b3a23132cbe2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jpush/jpush-api-php-client/zipball/ebb191e8854a35c3fb7a6626028b3a23132cbe2c",
+                "reference": "ebb191e8854a35c3fb7a6626028b3a23132cbe2c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JPush\\": "src/JPush/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "JPush",
+                    "email": "support@jpush.cn",
+                    "homepage": "https://www.jpush.cn/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "JPush API PHP Client",
+            "homepage": "https://github.com/jpush/jpush-api-php-client",
+            "support": {
+                "issues": "https://github.com/jpush/jpush-api-php-client/issues",
+                "source": "https://github.com/jpush/jpush-api-php-client/tree/v3.6.8"
+            },
+            "time": "2021-08-12T07:43:39+00:00"
         },
         {
             "name": "kslimani/laravel-passport-grant",

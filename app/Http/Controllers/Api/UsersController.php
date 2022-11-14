@@ -113,7 +113,7 @@ class UsersController extends Controller
 
         $attributes = [];
 
-        foreach (['name', 'username', 'phone', 'email', 'gender', 'birthday', 'introduction'] as $value) {
+        foreach (['name', 'username', 'phone', 'email', 'gender', 'birthday', 'introduction', 'registration_id'] as $value) {
             $request->whenFilled($value, function ($input) use (&$attributes, $value) {
                 $attributes[$value] = $input;
             });

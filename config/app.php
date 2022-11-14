@@ -200,6 +200,7 @@ return [
         App\Providers\JetstreamServiceProvider::class,
 
         App\Providers\EasySmsServiceProvider::class,
+        App\Providers\JpushServiceProvider::class,
     ],
 
     /*
