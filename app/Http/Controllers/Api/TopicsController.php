@@ -8,47 +8,38 @@ use App\Http\Resources\TopicResource;
 use App\Models\Image;
 use App\Models\Topic;
 use App\Models\User;
+use App\Queries\TopicQuery;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Jiannei\Response\Laravel\Support\Facades\Response;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class TopicsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  Request  $request
+     * @param  TopicQuery  $query
      * @return JsonResponse|JsonResource
      */
-    public function index(): JsonResponse|JsonResource
+    public function index(Request $request, TopicQuery $query): JsonResponse|JsonResource
     {
-        $topics = QueryBuilder::for(Topic::class)
-           ->allowedIncludes(['user', 'category'])
-           ->allowedFilters([
-               'title',
-               AllowedFilter::exact('category_id'),
-               AllowedFilter::scope('withOrder')->default('recentReplied'),
-           ])
-           ->paginate();
+        $topics = $query->paginate();
 
         return Response::success(TopicResource::collection($topics));
     }
 
-    public function userIndex(Request $request, User $user): JsonResponse|JsonResource
+    /**
+     * @param  Request  $request
+     * @param  User  $user
+     * @param  TopicQuery  $query
+     * @return JsonResponse|JsonResource
+     */
+    public function userIndex(Request $request, User $user, TopicQuery $query): JsonResponse|JsonResource
     {
-        $query = $user->topics()->getQuery();
-
-        $topics = QueryBuilder::for($query)
-            ->allowedIncludes(['user', 'category'])
-            ->allowedFilters([
-                'title',
-                AllowedFilter::exact('category_id'),
-                AllowedFilter::scope('withOrder')->default('recentReplies'),
-            ])
-            ->paginate();
+        $topics = $query->where('user_id', $user->id)->paginate();
 
         return Response::success(TopicResource::collection($topics));
     }
@@ -79,11 +70,14 @@ class TopicsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
+     * @param  TopicQuery  $query
      * @return JsonResponse|JsonResource
      */
-    public function show(int $id): JsonResponse|JsonResource
+    public function show(int $id, TopicQuery $query): JsonResponse|JsonResource
     {
-        //
+        $topic = $query->findOrFail($id);
+
+        return Response::success(new TopicResource($topic));
     }
 
     /**
