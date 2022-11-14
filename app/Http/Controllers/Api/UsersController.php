@@ -46,7 +46,7 @@ class UsersController extends Controller
             return Response::fail('验证码错误', 401);
         }
 
-        if ($request->input('avatar_image_id')) {
+        if ($request->filled('avatar_image_id')) {
             $image = Image::find($request->input('avatar_image_id'));
 
             $avatar = $image->path;
@@ -109,7 +109,7 @@ class UsersController extends Controller
                 $attributes[$value] = $input;
             });
         }
-        if ($request->input('avatar_image_id')) {
+        if ($request->filled('avatar_image_id')) {
             $image = Image::find($request->input('avatar_image_id'));
 
             $attributes['avatar'] = $image->path;
