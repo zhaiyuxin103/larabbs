@@ -7,20 +7,50 @@ use App\Http\Requests\Api\TopicRequest;
 use App\Http\Resources\TopicResource;
 use App\Models\Image;
 use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Jiannei\Response\Laravel\Support\Facades\Response;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TopicsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @return JsonResponse|JsonResource
      */
-    public function index(): JsonResponse
+    public function index(): JsonResponse|JsonResource
     {
-        //
+        $topics = QueryBuilder::for(Topic::class)
+           ->allowedIncludes(['user', 'category'])
+           ->allowedFilters([
+               'title',
+               AllowedFilter::exact('category_id'),
+               AllowedFilter::scope('withOrder')->default('recentReplied'),
+           ])
+           ->paginate();
+
+        return Response::success(TopicResource::collection($topics));
+    }
+
+    public function userIndex(Request $request, User $user): JsonResponse|JsonResource
+    {
+        $query = $user->topics()->getQuery();
+
+        $topics = QueryBuilder::for($query)
+            ->allowedIncludes(['user', 'category'])
+            ->allowedFilters([
+                'title',
+                AllowedFilter::exact('category_id'),
+                AllowedFilter::scope('withOrder')->default('recentReplies'),
+            ])
+            ->paginate();
+
+        return Response::success(TopicResource::collection($topics));
     }
 
     /**
@@ -28,9 +58,9 @@ class TopicsController extends Controller
      *
      * @param  TopicRequest  $request
      * @param  Topic  $topic
-     * @return JsonResponse
+     * @return JsonResponse|JsonResource
      */
-    public function store(TopicRequest $request, Topic $topic): JsonResponse
+    public function store(TopicRequest $request, Topic $topic): JsonResponse|JsonResource
     {
         $topic->fill($request->all(['title', 'subtitle', 'body', 'category_id', 'is_released', 'need_released', 'released_at']));
         $request->whenFilled('topic_image_id', function ($input) use ($topic) {
@@ -49,9 +79,9 @@ class TopicsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return JsonResponse
+     * @return JsonResponse|JsonResource
      */
-    public function show(int $id): JsonResponse
+    public function show(int $id): JsonResponse|JsonResource
     {
         //
     }
@@ -61,11 +91,11 @@ class TopicsController extends Controller
      *
      * @param  TopicRequest  $request
      * @param  Topic  $topic
-     * @return JsonResponse
+     * @return JsonResponse|JsonResource
      *
      * @throws AuthorizationException
      */
-    public function update(TopicRequest $request, Topic $topic): JsonResponse
+    public function update(TopicRequest $request, Topic $topic): JsonResponse|JsonResource
     {
         $this->authorize('update', $topic);
         $attributes = $request->all(['title', 'subtitle', 'body', 'category_id', 'is_released', 'need_released', 'released_at', 'order']);
@@ -83,11 +113,11 @@ class TopicsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  Topic  $topic
-     * @return JsonResponse
+     * @return JsonResponse|JsonResource
      *
      * @throws AuthorizationException
      */
-    public function destroy(Topic $topic): JsonResponse
+    public function destroy(Topic $topic): JsonResponse|JsonResource
     {
         $this->authorize('delete', $topic);
 
