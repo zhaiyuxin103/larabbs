@@ -66,7 +66,7 @@ class AuthorizationsController extends AccessTokenController
 
             return Response::success(json_decode($this->issueToken($request)->getContent()))->setStatusCode(201);
         } catch (OAuthServerException $exception) {
-            Response::fail('用户名或密码错误', 401);
+            Response::fail(trans('auth.failed'), 401);
         } catch (Exception $exception) {
             Response::fail($exception->getMessage());
         }
