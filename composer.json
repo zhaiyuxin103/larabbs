@@ -41,6 +41,7 @@
         "ramnzys/filament-email-log": "^0.2.2",
         "saade/blade-iconsax": "^1.0",
         "saade/filament-laravel-log": "^1.1",
+        "spatie/laravel-query-builder": "^5.0",
         "tightenco/ziggy": "^1.0",
         "viacreative/sudo-su": "^1.1"
     },
@@ -54,6 +55,7 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
+        "overtrue/laravel-query-logger": "^3.0",
         "phpunit/phpunit": "^9.5.10",
         "spatie/laravel-ignition": "^1.0"
     },
