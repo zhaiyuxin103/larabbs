@@ -58,6 +58,17 @@ class NotificationsController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function read(Request $request): mixed
+    {
+        $request->user()->markAsRead();
+
+        return Response::noContent();
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  Request  $request
