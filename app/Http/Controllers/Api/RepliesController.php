@@ -7,6 +7,7 @@ use App\Http\Requests\Api\ReplyRequest;
 use App\Http\Resources\ReplyResource;
 use App\Models\Reply;
 use App\Models\Topic;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -69,11 +70,21 @@ class RepliesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Topic  $topic
+     * @param  Reply  $reply
      * @return JsonResponse|JsonResource
+     *
+     * @throws AuthorizationException
      */
-    public function destroy(int $id): JsonResponse|JsonResource
+    public function destroy(Topic $topic, Reply $reply): JsonResponse|JsonResource
     {
-        //
+        if ($reply->topic_id !== $topic->id) {
+            Response::errorNotFound();
+        }
+
+        $this->authorize('delete', $reply);
+        $reply->delete();
+
+        return Response::noContent();
     }
 }

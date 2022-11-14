@@ -78,8 +78,8 @@ Route::prefix('v1')
                     Route::apiResource('images', ImagesController::class);
                     // 发布、修改、删除话题
                     Route::apiResource('topics', TopicsController::class)->only(['store', 'update', 'destroy']);
-                    // 发布回复
-                    Route::apiResource('topics.replies', RepliesController::class)->only(['store']);
+                    // 发布、删除回复
+                    Route::apiResource('topics.replies', RepliesController::class)->only(['store', 'destroy']);
                 });
             });
     });
