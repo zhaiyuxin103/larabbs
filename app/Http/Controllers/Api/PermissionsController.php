@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\NotificationResource;
+use App\Http\Resources\PermissionResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Jiannei\Response\Laravel\Support\Facades\Response;
 
-class NotificationsController extends Controller
+class PermissionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,20 +19,9 @@ class NotificationsController extends Controller
      */
     public function index(Request $request): JsonResponse|JsonResource
     {
-        $notifications = $request->user()->notifications()->paginate();
+        $permissions = $request->user()->getAllPermissions();
 
-        return Response::success(NotificationResource::collection($notifications));
-    }
-
-    /**
-     * @param  Request  $request
-     * @return JsonResponse|JsonResource
-     */
-    public function stats(Request $request): JsonResponse|JsonResource
-    {
-        return Response::success([
-            'unread_count' => $request->user()->notification_count,
-        ]);
+        return Response::success(PermissionResource::collection($permissions));
     }
 
     /**
@@ -55,17 +44,6 @@ class NotificationsController extends Controller
     public function show(int $id): JsonResponse|JsonResource
     {
         //
-    }
-
-    /**
-     * @param  Request  $request
-     * @return mixed
-     */
-    public function read(Request $request): mixed
-    {
-        $request->user()->markAsRead();
-
-        return Response::noContent();
     }
 
     /**
