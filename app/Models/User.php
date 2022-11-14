@@ -11,7 +11,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -55,7 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var string[]
      */
     protected $fillable = [
-        'name', 'username', 'phone', 'email', 'gender', 'birthday', 'avatar', 'password', 'introduction', 'weixin_openid', 'weixin_unionid',
+        'name', 'username', 'phone', 'email', 'gender', 'birthday', 'avatar', 'password', 'introduction', 'weixin_openid', 'weixin_unionid', 'current_team_id',
     ];
 
     /**
@@ -128,9 +130,9 @@ class User extends Authenticatable implements MustVerifyEmail
      * 查找给定用户名的用户实例。
      *
      * @param  string  $username
-     * @return User
+     * @return User|null
      */
-    public function findForPassport(string $username): User
+    public function findForPassport(string $username): ?User
     {
         filter_var($username, FILTER_VALIDATE_EMAIL) ? $credentials['email'] = $username : $credentials['phone'] = $username;
 
@@ -149,6 +151,20 @@ class User extends Authenticatable implements MustVerifyEmail
                     })->join(' '));
 
                     return 'https://ui-avatars.com/api/?name='.urlencode($name).'&color=7F9CF5&background=EBF4FF';
+                }
+            }
+        );
+    }
+
+    public function password(): Attribute
+    {
+        return Attribute::make(
+            set: function ($value) {
+                // 如果值的长度等于 60，即认为是已经做过加密的情况
+                if (Str::length($value) !== 60) {
+
+                    // 不等于 60，做密码加密处理
+                    return Hash::make($value);
                 }
             }
         );

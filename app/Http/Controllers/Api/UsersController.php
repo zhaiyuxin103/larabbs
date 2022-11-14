@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Image;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -44,10 +46,23 @@ class UsersController extends Controller
             return Response::fail('验证码错误', 401);
         }
 
+        if ($request->input('avatar_image_id')) {
+            $image = Image::find($request->input('avatar_image_id'));
+
+            $avatar = $image->path;
+        }
+
         $user = User::create([
             'name' => $request->input('name'),
+            'username' => $request->input('username'),
             'phone' => $verifyData['phone'],
+            'email' => $request->input('email'),
+            'avatar' => $avatar ?? null,
+            'gender' => $request->input('gender'),
+            'birthday' => $request->date('birthday'),
             'password' => $request->input('password'),
+            'introduction' => $request->input('introduction'),
+            'current_team_id' => Team::inRandomOrder()->value('id'),
         ]);
 
         // 清除验证码缓存
@@ -80,13 +95,29 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param  UserRequest  $request
      * @return JsonResponse
      */
-    public function update(Request $request, int $id): JsonResponse
+    public function update(UserRequest $request): JsonResponse
     {
-        //
+        $user = $request->user();
+
+        $attributes = [];
+
+        foreach (['name', 'username', 'phone', 'email', 'gender', 'birthday', 'introduction'] as $value) {
+            $request->whenFilled($value, function ($input) use (&$attributes, $value) {
+                $attributes[$value] = $input;
+            });
+        }
+        if ($request->input('avatar_image_id')) {
+            $image = Image::find($request->input('avatar_image_id'));
+
+            $attributes['avatar'] = $image->path;
+        }
+
+        $user->update($attributes);
+
+        return Response::success((new UserResource($user))->showSensitiveFields());
     }
 
     /**
