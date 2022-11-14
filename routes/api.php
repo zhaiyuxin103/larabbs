@@ -71,8 +71,8 @@ Route::prefix('v1')
                     Route::patch('user', [UsersController::class, 'update'])->name('user.update');
                     // 上传图片
                     Route::apiResource('images', ImagesController::class);
-                    // 发布、修改话题
-                    Route::apiResource('topics', TopicsController::class)->only(['store', 'update']);
+                    // 发布、修改、删除话题
+                    Route::apiResource('topics', TopicsController::class)->only(['store', 'update', 'destroy']);
                 });
             });
     });

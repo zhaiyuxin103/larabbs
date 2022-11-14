@@ -82,11 +82,17 @@ class TopicsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Topic  $topic
      * @return JsonResponse
+     *
+     * @throws AuthorizationException
      */
-    public function destroy(int $id): JsonResponse
+    public function destroy(Topic $topic): JsonResponse
     {
-        //
+        $this->authorize('delete', $topic);
+
+        $topic->delete();
+
+        return Response::noContent();
     }
 }
