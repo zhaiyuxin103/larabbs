@@ -52,7 +52,7 @@
           class="md:flex w-full md:w-1/4 items-end justify-center pt-4 text-center sm:items-center sm:p-0">
           <div
             class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:w-full sm:max-w-sm sm:p-6">
-            <img class="block w-4/5 rounded-md mx-auto"
+            <img class="block w-full rounded-md"
                  :src="topic.user.avatar_link"
                  :alt="topic.user.name">
             <div class="mt-3 text-center sm:mt-5 border-t border-gray-200 pt-4">

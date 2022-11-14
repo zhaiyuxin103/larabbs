@@ -301,6 +301,10 @@ const translate = (translate) => {
                     <div class="block px-4 py-2 text-xs text-gray-400">
                       Manage Account
                     </div>
+                    <JetDropdownLink :href="route('users.show', $page.props.user?.id)">
+                      <font-awesome-icon icon="fa-solid fa-user" class="mr-2"/>
+                      个人中心
+                    </JetDropdownLink>
                     <JetDropdownLink :href="route('profile.show')">
                       <font-awesome-icon icon="fa-solid fa-user-pen" class="mr-2"/>
                       Profile
@@ -416,6 +420,12 @@ const translate = (translate) => {
               <div class="block px-4 py-2 text-xs text-gray-400" v-if="$page.props.user">
                 Manage Account
               </div>
+              <JetResponsiveNavLink :href="route('users.show', $page.props.user?.id)"
+                                    :active="route().current('users.show')"
+                                    v-if="$page.props.user">
+                <font-awesome-icon icon="fa-solid fa-user" class="mr-2"/>
+                个人中心
+              </JetResponsiveNavLink>
               <JetResponsiveNavLink :href="route('profile.show')"
                                     :active="route().current('profile.show')"
                                     v-if="$page.props.user">

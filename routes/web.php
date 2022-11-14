@@ -6,6 +6,7 @@ use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\TopicsController;
 use App\Http\Controllers\TranslationsController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,6 +37,7 @@ Route::get('topics/{topic}/{slug?}', [TopicsController::class, 'show'])->name('t
 Route::get('categories/{category}', [CategoriesController::class, 'show'])->name('categories.show');
 Route::resource('translates', TranslationsController::class);
 Route::resource('captchas', CaptchasController::class);
+Route::resource('users', UsersController::class);
 
 Route::middleware([
     'auth:sanctum',
