@@ -25,6 +25,17 @@ class NotificationsController extends Controller
     }
 
     /**
+     * @param  Request  $request
+     * @return JsonResponse|JsonResource
+     */
+    public function stats(Request $request): JsonResponse|JsonResource
+    {
+        return Response::success([
+            'unread_count' => $request->user()->notification_count,
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  Request  $request
