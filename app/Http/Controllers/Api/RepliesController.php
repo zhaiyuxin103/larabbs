@@ -7,6 +7,7 @@ use App\Http\Requests\Api\ReplyRequest;
 use App\Http\Resources\ReplyResource;
 use App\Models\Reply;
 use App\Models\Topic;
+use App\Queries\ReplyQuery;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,11 +19,27 @@ class RepliesController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  int  $id
+     * @param  ReplyQuery  $query
      * @return JsonResponse|JsonResource
      */
-    public function index(): JsonResponse|JsonResource
+    public function index(int $id, ReplyQuery $query): JsonResponse|JsonResource
     {
-        //
+        $replies = $query->where('topic_id', $id)->whereNull('parent_id')->paginate();
+
+        return Response::success(ReplyResource::collection($replies));
+    }
+
+    /**
+     * @param  int  $id
+     * @param  ReplyQuery  $query
+     * @return JsonResponse|JsonResource
+     */
+    public function userIndex(int $id, ReplyQuery $query): JsonResponse|JsonResource
+    {
+        $replies = $query->where('user_id', $id)->paginate();
+
+        return Response::success(ReplyResource::collection($replies));
     }
 
     /**

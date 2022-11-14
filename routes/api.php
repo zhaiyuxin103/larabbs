@@ -67,6 +67,10 @@ Route::prefix('v1')
                 Route::get('users/{user}/topics', [TopicsController::class, 'userIndex'])->name('users.topics.index');
                 // 话题列表、详情
                 Route::apiResource('topics', TopicsController::class)->only(['index', 'show']);
+                // 话题回复列表
+                Route::apiResource('topics.replies', RepliesController::class)->only(['index']);
+                // 某个用户的回复列表
+                Route::get('users/{user}/replies', [RepliesController::class, 'userIndex'])->name('users.replies.index');
 
                 // 登录后可以访问的接口
                 Route::middleware(['auth:api'])->group(function () {

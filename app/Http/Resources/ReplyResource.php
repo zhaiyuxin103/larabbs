@@ -27,6 +27,9 @@ class ReplyResource extends JsonResource
             'order' => (int) $this->resource->order,
             'created_at' => (string) $this->resource->created_at,
             'updated_at' => (string) $this->resource->updated_at,
+            'user' => new UserResource($this->whenLoaded('user')),
+            'topic' => new TopicResource($this->whenLoaded('topic')),
+            'children' => ReplyResource::collection($this->whenLoaded('children')),
         ];
     }
 }
