@@ -17,16 +17,16 @@ class RoleResource extends JsonResource
      */
     public function toArray($request): array|JsonSerializable|Arrayable
     {
-       return [
-           'id' => $this->resource->id,
-           'name' => $this->resource->name,
-           'guard_name' => $this->resource->guard_name,
-           'show' => $this->resource->show,
-           'order' => $this->resource->order,
-           'created_at' => (string) $this->resource->created_at,
-           'updated_at' => (string) $this->resource->updated_at,
-           'deleted_at' => $this->resource->deleted_at ? (string) $this->resource->deleted_at : null,
-           'pivot' => $this->resource->pivot,
-       ];
+        return [
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            'guard_name' => $this->resource->guard_name,
+            'show' => $this->resource->show,
+            'order' => $this->resource->order,
+            'created_at' => (string) $this->resource->created_at,
+            'updated_at' => (string) $this->resource->updated_at,
+            'deleted_at' => $this->resource->deleted_at ? (string) $this->resource->deleted_at : null,
+            'pivot' => $this->resource->pivot,
+        ];
     }
 }
