@@ -12,10 +12,10 @@
           class="md:flex w-full md:w-1/4 items-end justify-center pt-4 text-center sm:items-center sm:p-0  md:mr-8">
           <div
             class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:w-full sm:max-w-sm sm:p-6">
-            <img class="block rounded-md"
+            <img class="block w-full rounded-md"
                  :src="user.avatar_link"
                  :alt="user.name">
-            <div class="mt-3 text-center sm:mt-5 border-t border-gray-200 pt-4">
+            <div class="mt-3 text-center border-t border-gray-200 pt-3">
               <h3 class="text-lg font-medium leading-6 text-gray-900">
                 个人简介
               </h3>
@@ -24,7 +24,7 @@
               </div>
             </div>
 
-            <div class="mt-3 text-center sm:mt-5 border-t border-gray-200 pt-4">
+            <div class="mt-3 text-center border-t border-gray-200 pt-3">
               <h3 class="text-lg font-medium leading-6 text-gray-900">
                 注册于
               </h3>

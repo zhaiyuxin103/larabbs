@@ -44,9 +44,7 @@
             <div class="flex items-center space-x-3">
               <div class="flex-1 space-y-1">
                 <div class="flex items-center justify-between">
-                  <Link :href="link.link">
-                    {{ link.title }}
-                  </Link>
+                  <a :href="link.link" target="_blank">{{ link.title }}</a>
                 </div>
               </div>
             </div>

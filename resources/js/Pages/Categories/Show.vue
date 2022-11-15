@@ -12,12 +12,12 @@
         <div class="w-full md:w-3/4 bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 md:mr-8">
           <div>
             <Link class="mr-4" :href="_.head(_.split($page.url, '?')) + '?order=default'">
-              <span v-if="$page.url.endsWith('recent')">最后回复</span>
+              <span v-if="$page.url.endsWith('recent')" class="text-sm">最后回复</span>
               <JetButton v-else>最后回复</JetButton>
             </Link>
             <Link :href="_.head(_.split($page.url, '?')) + '?order=recent'">
               <JetButton v-if="$page.url.endsWith('recent')">最新发布</JetButton>
-              <span v-else>最新发布</span>
+              <span v-else class="text-sm">最新发布</span>
             </Link>
           </div>
           <hr class="mt-4">
