@@ -77,7 +77,7 @@ class UsersController extends Controller
         // 清除验证码缓存
         Cache::forget($cacheKey);
 
-        return Response::success((new UserResource($user))->showSensitiveFields());
+        return Response::success((new UserResource($user))->showSensitiveFields())->setStatusCode(201);
     }
 
     /**

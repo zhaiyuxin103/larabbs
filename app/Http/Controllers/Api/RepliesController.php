@@ -58,7 +58,7 @@ class RepliesController extends Controller
         $reply->content = $request->input('content');
         $reply->save();
 
-        return Response::success(new ReplyResource($reply));
+        return Response::success(new ReplyResource($reply))->setStatusCode(201);
     }
 
     /**

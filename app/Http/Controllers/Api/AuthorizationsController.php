@@ -64,7 +64,7 @@ class AuthorizationsController extends AccessTokenController
                 return Response::fail(Arr::first(Arr::first($messages)), 422, $messages);
             }
 
-            return Response::success(json_decode($this->issueToken($request)->getContent()))->setStatusCode(201);
+            return Response::success(json_decode($this->issueToken($request)->getContent(), true))->setStatusCode(201);
         } catch (OAuthServerException $exception) {
             Response::fail(trans('auth.failed'), 401);
         } catch (Exception $exception) {

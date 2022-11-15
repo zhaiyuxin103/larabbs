@@ -63,7 +63,7 @@ class TopicsController extends Controller
         $topic->order = $request->filled('order') ? $request->input('order') : 0;
         $topic->save();
 
-        return Response::success(new TopicResource($topic));
+        return Response::success(new TopicResource($topic))->setStatusCode(201);
     }
 
     /**

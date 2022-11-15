@@ -45,7 +45,7 @@ class ImagesController extends Controller
         $image->type = $request->input('type');
         $image->save();
 
-        return Response::success(new ImageResource($image));
+        return Response::success(new ImageResource($image))->setStatusCode(201);
     }
 
     /**
