@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Link;
 use Illuminate\Database\Seeder;
 
-class LinksTableSeeder extends Seeder
+class LinksSeeder extends Seeder
 {
     /**
      * Run the database seeds.
