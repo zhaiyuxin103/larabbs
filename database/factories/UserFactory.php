@@ -5,8 +5,8 @@ namespace Database\Factories;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use JetBrains\PhpStorm\ArrayShape;
 use Laravel\Jetstream\Features;
 
 class UserFactory extends Factory
@@ -23,14 +23,18 @@ class UserFactory extends Factory
      *
      * @return array
      */
-    #[ArrayShape(['name' => 'string', 'email' => 'string', 'email_verified_at' => "\Illuminate\Support\Carbon", 'password' => 'string', 'remember_token' => 'string', 'current_team_id' => 'mixed'])]
     public function definition(): array
     {
         return [
             'name' => $this->faker->name(),
+            'username' => $this->faker->userName(),
+            'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'gender' => $this->faker->randomElement([0, 1, 2]),
+            'birthday' => $this->faker->dateTimeBetween(),
+            'password' => Hash::make('password'), // password
+            'introduction' => $this->faker->sentence(),
             'remember_token' => Str::random(10),
             'current_team_id' => $this->faker->numberBetween(1, 10),
         ];

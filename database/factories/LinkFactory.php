@@ -18,9 +18,9 @@ class LinkFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->name,
-            'description' => $this->faker->sentence,
-            'link' => $this->faker->url,
+            'title' => $this->faker->sentence(3),
+            'description' => $this->faker->sentence(),
+            'link' => $this->faker->url(),
             'show' => $this->faker->randomElement([0, 1]),
             'order' => $this->faker->randomNumber(3),
         ];

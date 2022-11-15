@@ -173,11 +173,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return Attribute::make(
             set: function ($value) {
                 // 如果值的长度等于 60，即认为是已经做过加密的情况
-                if (Str::length($value) !== 60) {
-
-                    // 不等于 60，做密码加密处理
-                    return Hash::make($value);
-                }
+                // 不等于 60，做密码加密处理
+                return Str::length($value) !== 60 ? Hash::make($value) : $value;
             }
         );
     }
