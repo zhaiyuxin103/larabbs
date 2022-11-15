@@ -32,7 +32,7 @@ class TopicsController extends Controller
             // 将类目树传递给模版文件
             'categoryTree' => $categoryService->getCategoryTree(),
             'topics' => Topic::with(['category', 'user'])->withOrder(Request()->input('order'))->paginate(),
-            'page' => Request()->input('page', 1),
+            'page' => (int) Request()->input('page', 1),
         ]);
     }
 
@@ -42,7 +42,7 @@ class TopicsController extends Controller
             // 将类目树传递给模版文件
             'categoryTree' => $categoryService->getCategoryTree(),
             'topics' => Topic::where('user_id', $user->id)->with(['category', 'user'])->withOrder(Request()->input('order'))->paginate(),
-            'page' => Request()->input('page', 1),
+            'page' => (int) Request()->input('page', 1),
         ]);
     }
 

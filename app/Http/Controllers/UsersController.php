@@ -55,7 +55,7 @@ class UsersController extends Controller
             'tab' => Request()->input('tab', 'topics'),
             'topics' => Topic::where('user_id', $id)->recent()->paginate(5),
             'replies' => Reply::where('user_id', $id)->with(['topic'])->paginate(5),
-            'page' => Request()->input('page', 1),
+            'page' => (int) Request()->input('page', 1),
         ]);
     }
 

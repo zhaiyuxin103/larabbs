@@ -31,7 +31,7 @@ class RepliesController extends Controller
     {
         return Inertia::render('Users/Replies', [
             'replies' => Reply::where('user_id', $user->id)->with(['topic'])->paginate(),
-            'page' => Request()->input('page', 1),
+            'page' => (int) Request()->input('page', 1),
         ]);
     }
 

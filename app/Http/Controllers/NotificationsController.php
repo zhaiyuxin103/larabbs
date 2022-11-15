@@ -21,7 +21,7 @@ class NotificationsController extends Controller
 
         return Inertia::render('Notifications/Index', [
             'notifications' => Auth::user()->notifications()->paginate(),
-            'page' => Request()->input('page', 1),
+            'page' => (int) Request()->input('page', 1),
         ]);
     }
 
