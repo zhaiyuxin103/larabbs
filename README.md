@@ -21,26 +21,32 @@
 ## Install
 
 1. 拉取代码
+
     ```sh
     git clone git@github.com:zhaiyuxin103/larabbs.git
     ```
 2. 安装依赖
+
     ```sh
     composer install
     ```
 3. 安装前端依赖并编译
+
     ```sh
     npm install & npm run build
     ```
 4. 环境变量
+
     ```sh
     cp .env.example .env
     ```
 5. 生成密钥
+
     ```sh
     php artisan key:generate
     ```
 6. 运行数据库迁移和数据填充
+
     ```sh
     php artisan migrate --seed
     ```
