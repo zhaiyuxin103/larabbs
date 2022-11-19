@@ -21,6 +21,15 @@ class Kernel extends ConsoleKernel
         $schedule->command('telescope:prune')->daily();
         // 一个小时执行一次「活跃用户」数据生成的命令
         $schedule->command('larabbs:calculate-active-user')->hourly();
+        $schedule->command('passport:purge')->hourly();
+        $schedule->command('backup:clean')->daily()->at('01:00');
+        $schedule->command('backup:run')
+            ->daily()
+            ->at('01:30')
+            ->onFailure(function () {
+            })
+            ->onSuccess(function () {
+            });
     }
 
     /**

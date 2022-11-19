@@ -42,6 +42,7 @@
         "ramnzys/filament-email-log": "^0.2.2",
         "saade/blade-iconsax": "^1.0",
         "saade/filament-laravel-log": "^1.1",
+        "spatie/laravel-backup": "^8.1",
         "spatie/laravel-query-builder": "^5.0",
         "tightenco/ziggy": "^1.0",
         "viacreative/sudo-su": "^1.1"
