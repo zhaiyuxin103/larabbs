@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Awssat\Visits\Visits;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -21,6 +22,7 @@ class Topic extends Model
      */
     protected $appends = [
         'image_link',
+        'visits_count',
     ];
 
     public function category(): BelongsTo
@@ -85,6 +87,18 @@ class Topic extends Model
     {
         return Attribute::make(
             get: fn () => $this->image ? Storage::url($this->image) : null,
+        );
+    }
+
+    public function visits(): Visits
+    {
+        return visits($this);
+    }
+
+    public function visitsCount(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->visits()->count(),
         );
     }
 }

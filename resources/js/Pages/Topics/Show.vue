@@ -18,11 +18,20 @@
             <h1 class="text-center mt-4 mb-4">
               {{ topic.title }}
             </h1>
-            <div class="text-center text-gray-500">
-              {{ formatDistance(new Date(topic.created_at), new Date(), {locale: zhCN}) }}
-              ⋅
-              <ChatBubbleLeftRightIcon class="inline w-4 h-4"></ChatBubbleLeftRightIcon>
+            <div class="flex justify-center items-center text-sm text-center text-gray-500">
+              <EyeIcon class="inline w-4 h-4"></EyeIcon>&nbsp;
+              {{ topic.visits_count }}
+              ⋅&nbsp;
+              <ChatBubbleLeftRightIcon class="inline w-4 h-4"></ChatBubbleLeftRightIcon>&nbsp;
               {{ topic.reply_count }}
+              ⋅&nbsp;
+              <tippy>
+                <span>创建于 {{ formatDistance(new Date(topic.created_at), new Date(), {locale: zhCN}) }}</span>
+                <template #content>
+                  {{ topic.created_at }}
+                </template>
+              </tippy>
+
             </div>
             <div v-html="topic.body"></div>
             <div v-if="$page.props.user && $page.props.user.id === topic.user_id">
@@ -102,7 +111,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link, Head, useForm } from '@inertiajs/inertia-vue3';
 import { formatDistance } from 'date-fns'
 import { zhCN } from 'date-fns/locale';
-import { ChatBubbleLeftRightIcon, PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline';
+import { ChatBubbleLeftRightIcon, PencilSquareIcon, TrashIcon, EyeIcon } from '@heroicons/vue/24/outline';
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
 import JetDangerButton from "@/Jetstream/DangerButton.vue";
 import JetDialogModal from '@/Jetstream/DialogModal.vue';

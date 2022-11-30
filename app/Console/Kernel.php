@@ -30,6 +30,7 @@ class Kernel extends ConsoleKernel
             })
             ->onSuccess(function () {
             });
+        $schedule->command('larabbs:sync-topic-pv')->hourly();
     }
 
     /**

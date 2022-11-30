@@ -89,6 +89,8 @@ class TopicsController extends Controller
             return Redirect::route('topics.show', [$topic->id, $topic->slug]);
         }
 
+        $topic->visits()->increment();
+
         return Inertia::render('Topics/Show', [
             'categories' => Category::where('show', true)->orderBy('order')->get(),
             'topic' => Topic::with(['user', 'category.parent', 'replies' => function ($query) {

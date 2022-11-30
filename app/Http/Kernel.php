@@ -28,6 +28,8 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         // 将提交请求参数中空字符串转化为 null
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        // 记录 referer
+        \Spatie\Referer\CaptureReferer::class,
     ];
 
     /**
