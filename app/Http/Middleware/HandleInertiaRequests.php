@@ -56,6 +56,7 @@ class HandleInertiaRequests extends Middleware
                 ['key' => 'ko', 'label' => 'ko', 'matice' => 'ko', 'name' => '한국어'],
             ],
             'links' => app(Link::class)->getAllCached(),
+            'route_class' => route_class(),
         ]);
     }
 }
