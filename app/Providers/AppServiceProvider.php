@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Models\User;
 use App\View\Composers\CategoryTreeComposer;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Saade\FilamentLaravelLog\Pages\ViewLog;
+use Studio\Totem\Totem;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,5 +44,10 @@ class AppServiceProvider extends ServiceProvider
         });
 
         JsonResource::withoutWrapping();
+
+        Totem::auth(function ($request) {
+            // return true / false . For e.g.
+            return Auth::check();
+        });
     }
 }
