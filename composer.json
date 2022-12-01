@@ -63,7 +63,8 @@
         "nunomaduro/collision": "^6.1",
         "overtrue/laravel-query-logger": "^3.0",
         "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0"
+        "spatie/laravel-ignition": "^1.0",
+        "wnx/laravel-stats": "^2.10"
     },
     "autoload": {
         "psr-4": {
