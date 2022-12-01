@@ -32,7 +32,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'birthday' => ['nullable', 'date'],
             'introduction' => ['nullable', 'max:255'],
         ], [
-            'name.required' => '用户名不能为空。',
+            'name.required' => '姓名不能为空。',
             'avatar.mimes' => '头像必须是 png, jpg, gif, jpeg 格式的图片',
             'avatar.dimensions' => '图片的清晰度不够，宽和高需要 208px 以上',
         ])->validateWithBag('updateProfileInformation');

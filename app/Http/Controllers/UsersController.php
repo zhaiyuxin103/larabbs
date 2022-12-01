@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Vinkla\Hashids\Facades\Hashids;
 
 class UsersController extends Controller
 {
@@ -45,16 +46,16 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return Response
      */
-    public function show(int $id): Response
+    public function show(string $id): Response
     {
         return Inertia::render('Users/Show', [
-            'user' => User::with(['currentTeam'])->find($id),
+            'user' => User::with(['currentTeam'])->find(current(Hashids::decode($id))),
             'tab' => Request()->input('tab', 'topics'),
-            'topics' => Topic::where('user_id', $id)->recent()->paginate(5),
-            'replies' => Reply::where('user_id', $id)->with(['topic'])->paginate(5),
+            'topics' => Topic::where('user_id', current(Hashids::decode($id)))->recent()->paginate(5),
+            'replies' => Reply::where('user_id', current(Hashids::decode($id)))->with(['topic'])->paginate(5),
             'page' => (int) Request()->input('page', 1),
         ]);
     }

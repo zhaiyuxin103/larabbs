@@ -111,7 +111,7 @@ const props = defineProps({
 const tabs = [
   {
     name: 'Ta 的话题',
-    href: route('users.show', {user: props.user.id, tab: 'topics'}),
+    href: route('users.show', {user: props.user.hash_id, tab: 'topics'}),
     count: props.topics.total,
     icon: CubeTransparentIcon,
     current: props.tab === 'topics',
@@ -119,7 +119,7 @@ const tabs = [
   },
   {
     name: 'Ta 的回复',
-    href: route('users.show', {user: props.user.id, tab: 'replies'}),
+    href: route('users.show', {user: props.user.hash_id, tab: 'replies'}),
     count: props.replies.total,
     icon: ChatBubbleOvalLeftEllipsisIcon,
     current: props.tab === 'replies',

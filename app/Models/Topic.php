@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class Topic extends Model
 {
     use SoftDeletes;
+    use Traits\HashIdHelper;
 
     protected $fillable = ['title', 'subtitle', 'image', 'body', 'user_id', 'category_id', 'is_released', 'need_released', 'released_at', 'vote_count', 'collect_count', 'reply_count', 'view_count', 'last_reply_user_id', 'order', 'excerpt', 'slug'];
 
@@ -23,6 +24,7 @@ class Topic extends Model
     protected $appends = [
         'image_link',
         'visits_count',
+        'hash_id',
     ];
 
     public function category(): BelongsTo
@@ -73,7 +75,7 @@ class Topic extends Model
 
     public function link($params = []): string
     {
-        return route('topics.show', array_merge([$this->id, $this->slug], $params));
+        return route('topics.show', array_merge([$this->hash_id, $this->slug], $params));
     }
 
     public function updateReplyCount()

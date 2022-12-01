@@ -79,14 +79,14 @@ class TopicsController extends Controller
         $topic->user_id = Auth::id();
         $topic->save();
 
-        return Redirect::route('topics.show', [$topic->id, $topic->slug])->with('flash.banner', '话题创建成功！');
+        return Redirect::route('topics.show', [$topic->hash_id, $topic->slug])->with('flash.banner', '话题创建成功！');
     }
 
     public function show(TopicRequest $request, Topic $topic): Redirector|RedirectResponse|Response
     {
         // URL 矫正
         if (! empty($topic->slug) && $topic->slug !== $request->slug) {
-            return Redirect::route('topics.show', [$topic->id, $topic->slug]);
+            return Redirect::route('topics.show', [$topic->hash_id, $topic->slug]);
         }
 
         $topic->visits()->increment();
@@ -118,12 +118,14 @@ class TopicsController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(TopicRequest $request, Topic $topic): Redirector|RedirectResponse
+    public function update(TopicRequest $request, Topic $topic, ImageUploadHandler $uploader): Redirector|RedirectResponse
     {
         $this->authorize('update', $topic);
-        $topic->update($request->all());
+        $topic->update(array_merge($request->all(), [
+            'image' => Arr::get($uploader->save($request->file('image'), 'topics', 1024), 'path'),
+        ]));
 
-        return Redirect::route('topics.show', [$topic->id, $topic->slug])->with('flash.banner', '话题更新成功！');
+        return Redirect::route('topics.show', [$topic->hash_id, $topic->slug])->with('flash.banner', '话题更新成功！');
     }
 
     /**

@@ -35,6 +35,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     use Traits\ActiveUserHelper;
     use Traits\HasDateTimeFormatter;
+    use Traits\HashIdHelper;
 
     public function notify($instance)
     {
@@ -104,6 +105,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
         'avatar_link',
+        'hash_id',
     ];
 
     public function topics(): HasMany

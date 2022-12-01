@@ -10,8 +10,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
     use SoftDeletes;
+    use Traits\HashIdHelper;
 
     protected $fillable = ['name', 'is_directory', 'level', 'path'];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'hash_id',
+    ];
 
     protected $casts = [
         'is_directory' => 'boolean',

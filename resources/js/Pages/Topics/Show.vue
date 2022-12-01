@@ -37,7 +37,7 @@
             <div v-if="$page.props.user && $page.props.user.id === topic.user_id">
               <hr class="my-4">
               <div class="flex items-center">
-                <Link :href="route('topics.edit', topic.id)" class="text-gray-500 mr-4">
+                <Link :href="route('topics.edit', topic.hash_id)" class="text-gray-500 mr-4">
                   <JetSecondaryButton>
                     <PencilSquareIcon class="inline w-4 h-4 mr-2"></PencilSquareIcon>
                     编辑
@@ -138,7 +138,7 @@ const confirmDeletion = (slug, id) => {
   confirmingDeletion.value = true;
 }
 const deleteTopic = () => {
-  form.delete(route('topics.destroy', props.topic.id), {
+  form.delete(route('topics.destroy', props.topic.hash_id), {
     preserveScroll: true,
     onSuccess: () => confirmingDeletion.value = false,
     onFinish: () => form.reset(),

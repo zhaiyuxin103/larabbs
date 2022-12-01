@@ -63,7 +63,7 @@ const submit = () => {
     form.image = imageInput.value.files[0] || props.topic.image;
   }
 
-  form.post(route('topics.update', props.topic.id), {
+  form.post(route('topics.update', props.topic.hash_id), {
     preserveScroll: true,
     onSuccess: () => clearImageInput(),
   });

@@ -117,7 +117,7 @@ const translate = (translate) => {
                             class="dropdown-content absolute hidden left-40 top-0 rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white w-40"
                             v-if="category.children">
                             <li v-for="child in category.children">
-                              <JetDropdownLink :href="route('categories.show', child.id)"
+                              <JetDropdownLink :href="route('categories.show', child.hash_id)"
                                                :class="{ 'bg-gray-100': categoryId === child.id }">
                                 {{ child.name }}
                               </JetDropdownLink>
@@ -301,7 +301,7 @@ const translate = (translate) => {
                     <div class="block px-4 py-2 text-xs text-gray-400">
                       Manage Account
                     </div>
-                    <JetDropdownLink :href="route('users.show', $page.props.user?.id)">
+                    <JetDropdownLink :href="route('users.show', $page.props.user?.hash_id)">
                       <font-awesome-icon icon="fa-solid fa-user" class="mr-2"/>
                       个人中心
                     </JetDropdownLink>
@@ -318,11 +318,11 @@ const translate = (translate) => {
                     <div class="block px-4 py-2 text-xs text-gray-400">
                       Topics & Replies
                     </div>
-                    <JetDropdownLink :href="`/users/${$page.props.user?.id}/topics`">
+                    <JetDropdownLink :href="`/users/${$page.props.user?.hash_id}/topics`">
                       <font-awesome-icon icon="fa-solid fa-cubes-stacked" class="mr-2"/>
                       Topics
                     </JetDropdownLink>
-                    <JetDropdownLink :href="`/users/${$page.props.user?.id}/replies`">
+                    <JetDropdownLink :href="`/users/${$page.props.user?.hash_id}/replies`">
                       <font-awesome-icon icon="fa-regular fa-comment-dots" class="mr-2"/>
                       Replies
                     </JetDropdownLink>
@@ -420,7 +420,7 @@ const translate = (translate) => {
               <div class="block px-4 py-2 text-xs text-gray-400" v-if="$page.props.user">
                 Manage Account
               </div>
-              <JetResponsiveNavLink :href="route('users.show', $page.props.user?.id)"
+              <JetResponsiveNavLink :href="route('users.show', $page.props.user?.hash_id)"
                                     :active="route().current('users.show')"
                                     v-if="$page.props.user">
                 <font-awesome-icon icon="fa-solid fa-user" class="mr-2"/>
@@ -445,15 +445,15 @@ const translate = (translate) => {
               <div class="block px-4 py-2 text-xs text-gray-400" v-if="$page.props.user">
                 Topics & Replies
               </div>
-              <JetResponsiveNavLink :href="`/users/${$page.props.user?.id}/topics`"
+              <JetResponsiveNavLink :href="`/users/${$page.props.user?.hash_id}/topics`"
                                     :active="route().current('users.topics.index')"
-                                    v-if="$page.props.user">
+                                    v-if="$page.props.user?.hash_id">
                 <font-awesome-icon icon="fa-solid fa-cubes-stacked" class="mr-2"/>
                 Topics
               </JetResponsiveNavLink>
-              <JetResponsiveNavLink :href="`/users/${$page.props.user?.id}/replies`"
+              <JetResponsiveNavLink :href="`/users/${$page.props.user?.hash_id}/replies`"
                                     :active="route().current('users.replies.index')"
-                                    v-if="$page.props.user">
+                                    v-if="$page.props.user?.hash_id">
                 <font-awesome-icon icon="fa-regular fa-comment-dots" class="mr-2"/>
                 Replies
               </JetResponsiveNavLink>

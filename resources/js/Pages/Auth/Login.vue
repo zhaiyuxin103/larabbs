@@ -31,9 +31,9 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Log in" />
+    <Head><title>Log in</title></Head>
 
-    <JetAuthenticationCard>
+    <JetAuthenticationCard :class="$page.props.route_class + '-page'">
         <template #logo>
             <JetAuthenticationCardLogo />
         </template>

@@ -54,4 +54,4 @@ Route::middleware([
     Route::resource('notifications', NotificationsController::class);
 });
 
-Route::get('topics/{topic}/{slug?}', [TopicsController::class, 'show'])->name('topics.show')->where('topic', '[0-9]+');
+Route::get('topics/{topic}/{slug?}', [TopicsController::class, 'show'])->name('topics.show');

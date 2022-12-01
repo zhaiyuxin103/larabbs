@@ -6,7 +6,7 @@
         <div class="flex-1 space-y-1">
           <div class="flex items-center justify-between">
             <h3 class="text-sm font-medium">
-              <Link :href="route('topics.show', reply.topic.id)">{{ reply.topic.title }}</Link>
+              <Link :href="route('topics.show', reply.topic.hash_id)">{{ reply.topic.title }}</Link>
             </h3>
             <p class="text-sm text-gray-500">
               <font-awesome-icon icon="fa-regular fa-clock"/>

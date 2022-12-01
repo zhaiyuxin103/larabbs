@@ -3,7 +3,7 @@
     <li v-for="topic in topics" class="flex items-center p-2 border-b border-slate-200 hover:bg-gray-500/5">
       <div class="grow">
         <div class="flex justify-between flex-auto my-1.5">
-          <Link :href="route('topics.show', [topic.id, topic.slug])" class="line-clamp-1">{{ topic.title }}</Link>
+          <Link :href="route('topics.show', [topic.hash_id, topic.slug])" class="line-clamp-1">{{ topic.title }}</Link>
           <small class="flex items-center text-gray-500">
             <Link>
               <span class="ml-1">{{ topic.reply_count }}</span> &nbsp;回复

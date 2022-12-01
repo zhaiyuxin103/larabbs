@@ -61,7 +61,7 @@ class RepliesController extends Controller
         $reply->content = $request->input('content');
         $reply->save();
 
-        return Redirect::route('topics.show', [$topic->id, $topic->slug])->with('flash.banner', '评论创建成功！');
+        return Redirect::route('topics.show', [$topic->hash_id, $topic->slug])->with('flash.banner', '评论创建成功！');
     }
 
     /**
@@ -111,6 +111,6 @@ class RepliesController extends Controller
         $this->authorize('delete', $reply);
         $reply->delete();
 
-        return Redirect::route('topics.show', [$reply->topic->id, $reply->topic->slug])->with('flash.banner', '评论删除成功！');
+        return Redirect::route('topics.show', [$reply->topic->hash_id, $reply->topic->slug])->with('flash.banner', '评论删除成功！');
     }
 }
