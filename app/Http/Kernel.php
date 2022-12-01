@@ -105,5 +105,6 @@ class Kernel extends HttpKernel
         'enum' => \Jiannei\Enum\Laravel\Http\Middleware\TransformEnums::class,
         // 接口语言设置
         'change-locale' => \App\Http\Middleware\ChangeLocale::class,
+        'under-construction' => \LarsJanssen\UnderConstruction\UnderConstruction::class,
     ];
 }

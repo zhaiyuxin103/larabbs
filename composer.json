@@ -35,6 +35,7 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/telescope": "^4.9",
         "laravel/tinker": "^2.7",
+        "larsjanssen6/underconstruction": "^8.1",
         "mews/purifier": "^3.3",
         "overtrue/easy-sms": "^2.2",
         "overtrue/laravel-socialite": "^4.0",
