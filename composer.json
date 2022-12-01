@@ -19,6 +19,7 @@
         "codeat3/blade-phosphor-icons": "^1.4",
         "doctrine/dbal": "^3.3",
         "filament/filament": "^2.0",
+        "genealabs/laravel-caffeine": "^9.0",
         "genl/matice": "^1.1",
         "gregwar/captcha": "^1.1",
         "guzzlehttp/guzzle": "^7.2",

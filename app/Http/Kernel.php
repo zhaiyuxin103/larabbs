@@ -30,6 +30,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         // 记录 referer
         \Spatie\Referer\CaptureReferer::class,
+        \GeneaLabs\LaravelCaffeine\Http\Middleware\LaravelCaffeineDripMiddleware::class,
     ];
 
     /**
