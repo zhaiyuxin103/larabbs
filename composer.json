@@ -14,6 +14,7 @@
         "althinect/filament-spatie-roles-permissions": "^1.0",
         "awssat/laravel-visits": "^4.0",
         "bezhansalleh/filament-language-switch": "^1.0",
+        "binarytorch/larecipe": "^2.5",
         "blade-ui-kit/blade-icons": "^1.4",
         "codeat3/blade-phosphor-icons": "^1.4",
         "doctrine/dbal": "^3.3",
